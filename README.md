@@ -28,6 +28,7 @@
 - [React API](#React-API)
 - [React Form](#React-Form)
 - [React Event](#REACT-EVENTS)
+- [React Keys](#React-Keys)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1905,5 +1906,164 @@ function App() {
 // Mengekspor fungsi komponen App sebagai default
 export default App;
 ```
+
+## REACT KEYS
+
+React Keys adalah pengenal unik yang digunakan untuk mengidentifikasi item mana yang telah berubah, diperbarui, atau dihapus dari daftar dan untuk menentukan komponen mana dalam koleksi yang perlu dirender ulang. React Keys berguna ketika kita membuat komponen secara dinamis atau ketika pengguna mengubah daftar.
+
+Menggunakan Keys dengan Komponen
+Ketika kita membuat komponen secara dinamis dengan menggunakan metode map atau loop, kita harus memberikan atribut key untuk setiap elemen yang dihasilkan. Key harus berupa string yang secara unik mengidentifikasi item daftar di antara saudara kandungnya. Biasanya kita akan menggunakan ID dari data kita sebagai key.
+
+Misalnya, kita memiliki array data berikut:
+
+```javascript
+const data = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" },
+  { id: 3, name: "Charlie" },
+];
+```
+
+Kemudian kita membuat komponen User yang menerima objek data sebagai prop dan menampilkan nama pengguna:
+
+```jsx
+function User({ data }) {
+  return <div className="user">{data.name}</div>;
+}
+```
+
+Kemudian kita membuat komponen UserList yang memetakan array data ke komponen User dan memberikan key berdasarkan id data:
+
+```jsx
+function UserList({ data }) {
+  return (
+    <div className="user-list">
+      {data.map((user) => (
+        <User key={user.id} data={user} />
+      ))}
+    </div>
+  );
+}
+```
+
+Kemudian kita melewatkan array data ke komponen UserList sebagai prop:
+
+```jsx
+<UserList data={data} />
+```
+
+Hasilnya adalah komponen UserList akan menampilkan tiga komponen User dengan nama Alice, Bob, dan Charlie.
+
+Mengapa Key Penting?
+Key penting karena mereka membantu React mengidentifikasi item mana yang telah berubah, diperbarui, atau dihapus dari daftar. Key juga membantu React mengoptimalkan kinerja rendering dengan meminimalkan jumlah elemen DOM yang dibuat atau dimodifikasi.
+
+Tanpa key, React akan mencocokkan elemen berdasarkan urutan mereka dalam array. Ini bisa menyebabkan masalah ketika elemen ditambahkan, dihapus, atau diurutkan ulang dalam array. Misalnya, jika kita memiliki daftar todo seperti ini:
+
+```jsx
+const todos = [
+  { id: 1, text: "Learn React" },
+  { id: 2, text: "Build a website" },
+  { id: 3, text: "Deploy to server" },
+];
+```
+
+Dan kita melewatkan array ini ke sebuah komponen TodoList yang memetakan setiap item ke sebuah komponen Todo:
+
+```jsx
+function TodoList({ todos }) {
+  return (
+    <ul className="todo-list">
+      {todos.map((todo) => (
+        <Todo todo={todo} />
+      ))}
+    </ul>
+  );
+}
+```
+
+Komponen Todo menerima objek todo sebagai prop dan menampilkan teks todo:
+
+```jsx
+function Todo({ todo }) {
+  return <li className="todo">{todo.text}</li>;
+}
+```
+
+Jika kita tidak memberikan key untuk setiap komponen Todo, React akan memberi peringatan seperti ini:
+
+Warning: Each child in a list should have a unique "key" prop.
+
+Jika kita mengabaikan peringatan ini dan menghapus item pertama dari array todos, React akan mengira bahwa item pertama sekarang adalah "Build a website", item kedua adalah "Deploy to server", dan item ketiga telah dihapus. Ini bisa menyebabkan perilaku yang tidak diinginkan atau tidak konsisten.
+
+Untuk menghindari hal ini, kita harus memberikan key untuk setiap komponen Todo berdasarkan id todo:
+
+```jsx
+function TodoList({ todos }) {
+  return (
+    <ul className="todo-list">
+      {todos.map((todo) => (
+        <Todo key={todo.id} todo={todo} />
+      ))}
+    </ul>
+  );
+}
+```
+
+Dengan cara ini, React akan tahu bahwa item pertama telah dihapus dan tidak perlu merender ulang item kedua dan ketiga.
+
+Key Harus Unik di Antara Saudara Kandung
+Key harus unik di antara saudara kandung, tetapi tidak perlu secara global unik. Dua elemen yang berbeda bisa memiliki key yang sama selama mereka tidak memiliki saudara kandung yang sama.
+
+Misalnya, kita bisa memiliki dua komponen TodoList yang menerima array todos yang berbeda sebagai prop, tetapi menggunakan id todo yang sama sebagai key:
+
+```jsx
+const todos1 = [
+  { id: 1, text: "Learn React" },
+  { id: 2, text: "Build a website" },
+];
+
+const todos2 = [
+  { id: 1, text: "Learn Vue" },
+  { id: 2, text: "Build an app" },
+];
+
+function App() {
+  return (
+    <div className="app">
+      <TodoList todos={todos1} />
+      <TodoList todos={todos2} />
+    </div>
+  );
+}
+```
+
+Ini tidak akan menyebabkan masalah karena setiap komponen TodoList memiliki array saudara kandung yang berbeda. Namun, jika kita memiliki array todos yang sama untuk kedua komponen TodoList, kita harus menggunakan key yang berbeda untuk setiap komponen TodoList:
+
+```jsx
+const todos = [
+  { id: 1, text: "Learn React" },
+  { id: 2, text: "Build a website" },
+];
+
+function App() {
+  return (
+    <div className="app">
+      <TodoList key="list1" todos={todos} />
+      <TodoList key="list2" todos={todos} />
+    </div>
+  );
+}
+```
+
+Key Harus Stabil
+Key harus stabil, artinya mereka tidak boleh berubah seiring waktu atau antara render ulang. Key yang stabil memungkinkan React untuk melacak item daftar dengan benar dan menghindari bug atau masalah kinerja.
+
+Key yang tidak stabil bisa disebabkan oleh beberapa hal, seperti:
+
+- Menggunakan indeks array sebagai key. Indeks array bisa berubah ketika item ditambahkan, dihapus, atau diurutkan ulang dalam array. Ini bisa menyebabkan React mengacaukan urutan elemen atau memperbarui elemen yang salah.
+- Menggunakan nilai acak atau tanggal sebagai key. Nilai acak atau tanggal bisa berubah setiap kali komponen dirender ulang. Ini bisa menyebabkan React membuat elemen DOM baru atau menghapus elemen DOM lama secara tidak perlu.
+- Menggunakan nilai yang berasal dari props atau state sebagai key. Nilai yang berasal dari props atau state bisa berubah karena aksi pengguna atau pembaruan data. Ini bisa menyebabkan React kehilangan jejak item daftar atau menimbulkan konflik dengan key lain.
+
+Key yang stabil biasanya berasal dari data asli yang digunakan untuk membuat daftar, seperti ID unik atau slug. Jika data asli tidak memiliki nilai unik dan stabil, kita harus membuatnya sendiri dan menyimpannya di tempat yang aman, seperti database atau penyimpanan lokal.
 
 
