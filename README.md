@@ -7,6 +7,7 @@
 - [Lifesicle React](#LIFECYCLE-RAEACT)
 - [Memulai dengan CDN](#MEMULAI-REACT-DENGAN-CDN)
 - [Memulai React dengan NodeJS](#MEMULAI-REACT-DENGAN-NODEJS)
+- [Setup VSCode](#SETUP-VSCODE)
 - [Mengenal ES6](#ES6)
   - [Apa itu ES6](#APA-ITU-ES6)
   - [ES6 Class](#ES6-CLASS)
@@ -171,8 +172,56 @@ You can now view belajar-react in the browser.
 Note that the development build is not optimized.
 To create a production build, use npm run build.
 ```
+## SETUP VSCODE
+Untuk install Visual Studio Code dan setup extension untuk React project, kita bisa mengikuti langkah-langkah berikut:
 
-## ES6
+1. Download dan install Visual Studio Code dari situs resminya (https://code.visualstudio.com/). Pilih versi yang sesuai dengan sistem operasi kita.
+2. Download dan install Node.js dari situs resminya (https://nodejs.org/). Node.js dibutuhkan untuk menjalankan aplikasi React dan npm (Node.js package manager) yang digunakan untuk menginstal paket-paket yang dibutuhkan oleh React.
+3. Buka Visual Studio Code dan klik pada menu "Extensions" (Ctrl+Shift+X) di sisi kiri. Cari dan install beberapa ekstensi yang berguna untuk pengembangan React, seperti:
+
+- ESLint: Untuk mendeteksi dan memperbaiki masalah sintaks atau gaya kode JavaScript.
+- Prettier: Untuk memformat kode secara otomatis sesuai dengan aturan yang ditentukan.
+- Bracket Pair Colorizer: Untuk memberi warna berbeda pada setiap pasangan kurung, sehingga lebih mudah dibaca.
+- Auto Rename Tag: Untuk mengubah nama tag HTML secara otomatis ketika kita mengubah nama tag pembuka atau penutup.
+- Simple React Snippets: Untuk menyediakan snippet kode yang sering digunakan saat membuat komponen React.
+- Code Spell Checker : Untuk mempermudah menganalisa error code
+- npm Intellisense : Untuk auto complate NPM
+- ES7 React/Redux/GraphQL/React-Native snippets: Untuk menyediakan snipet kode yang sering digunakan
+
+4. Selain itu, kita juga bisa menyesuaikan beberapa pengaturan Visual Studio Code untuk memudahkan pengembangan React, seperti:
+
+- Mengubah font family dan font size sesuai dengan preferensi kita.
+- Mengaktifkan format on save untuk menjalankan Prettier secara otomatis saat menyimpan file.
+- Mengaktifkan emmet untuk mendapatkan fitur auto-complete untuk HTML dan JSX.
+- Mengaktifkan auto import untuk mengimpor modul yang dibutuhkan secara otomatis.
+
+Kita bisa mengubah pengaturan Visual Studio Code dengan membuka menu "Settings" (Ctrl+,) dan mencari pengaturan yang ingin kita ubah.
+
+5. Untuk membuat aplikasi React, kita bisa menggunakan create-react-app yang merupakan alat bantu yang disediakan oleh tim React. Buka terminal di Visual Studio Code dengan klik pada menu "Terminal" dan pilih "New Terminal". Ketik perintah berikut untuk membuat aplikasi React:
+
+```bash
+npx create-react-app my-app
+```
+
+Di mana `my-app` adalah nama folder untuk aplikasi kita. Proses ini mungkin memakan waktu beberapa menit untuk membuat aplikasi React dan menginstal dependensinya.
+
+6. Setelah aplikasi React dibuat, kita bisa membukanya di Visual Studio Code dengan mengetik perintah berikut di terminal:
+
+```bash
+cd my-app
+code .
+```
+
+7. Untuk menjalankan aplikasi React, kita bisa mengetik perintah berikut di terminal:
+
+```bash
+npm start
+```
+
+Hal ini akan membuka aplikasi React di browser pada http://localhost:3000.
+
+Dengan langkah-langkah di atas, kita sudah siap untuk mulai membuat aplikasi React dengan Visual Studio Code.
+
 ### APA ITU ES6
 ES6 adalah singkatan dari ECMAScript 6, sebuah versi baru dari JavaScript yang diperkenalkan pada tahun 2015. ECMAScript adalah sebuah spesifikasi bahasa skrip yang mengatur bahasa-bahasa seperti JavaScript, ActionScript, dan Jscript. ES6 mendukung banyak fitur baru dan penting karena menandai awal dari restandardisasi JavaScript. Beberapa fitur kunci yang diperkenalkan di ES6 antara lain:
 
