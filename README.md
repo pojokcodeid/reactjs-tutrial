@@ -7,6 +7,8 @@
 - [Lifesicle React](#LIFECYCLE-RAEACT)
 - [Memulai dengan CDN](#MEMULAI-REACT-DENGAN-CDN)
 - [Memulai React dengan NodeJS](#MEMULAI-REACT-DENGAN-NODEJS)
+- [Mengenal ES6](#ES6)
+  - [Apa itu ES6](#APA-ITU-ES6)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -160,4 +162,82 @@ You can now view belajar-react in the browser.
 
 Note that the development build is not optimized.
 To create a production build, use npm run build.
+```
+
+## ES6
+### APA ITU ES6
+ES6 adalah singkatan dari ECMAScript 6, sebuah versi baru dari JavaScript yang diperkenalkan pada tahun 2015. ECMAScript adalah sebuah spesifikasi bahasa skrip yang mengatur bahasa-bahasa seperti JavaScript, ActionScript, dan Jscript. ES6 mendukung banyak fitur baru dan penting karena menandai awal dari restandardisasi JavaScript. Beberapa fitur kunci yang diperkenalkan di ES6 antara lain:
+
+- **const** dan **let**, dua kata kunci baru untuk mendeklarasikan variabel dengan cakupan blok, yang berbeda dari **var** yang memiliki cakupan fungsi.
+- **Arrow functions**, sebuah sintaks pendek untuk menulis ekspresi fungsi tanpa perlu kata kunci **function**, **return**, dan kurung kurawal.
+- **Template literals**, sebuah cara untuk membuat string yang dapat menyisipkan ekspresi dan memiliki baris baru secara implisit.
+- **Default parameters**, sebuah cara untuk memberikan nilai bawaan untuk parameter fungsi jika tidak ada argumen yang dilewatkan.
+- **The spread (...) operator**, sebuah operator yang dapat memperluas sebuah objek iterasi (seperti array) menjadi lebih banyak elemen.
+- **For/of loop**, sebuah pernyataan yang dapat mengulangi nilai-nilai dari sebuah objek iterasi (seperti array, string, map, set, dll).
+- **Map** dan **Set** objects, dua struktur data baru yang dapat menyimpan pasangan kunci-nilai dan nilai unik secara berurutan.
+- **Classes**, sebuah cara untuk mendefinisikan konstruktor dan metode objek dengan sintaks yang lebih sederhana dan elegan.
+- **Promises**, sebuah objek yang merepresentasikan hasil akhir dari operasi asinkron, yang dapat digunakan untuk menangani callback dengan lebih mudah.
+- **Symbol**, sebuah tipe data primitif baru yang dapat digunakan untuk membuat pengenal unik untuk properti objek.
+- **Modules**, sebuah cara untuk mengorganisir kode dalam file-file terpisah dan mengimpor atau mengekspor fungsi, kelas, atau variabel antar file.
+
+Berikut adalah contoh kode sederhana yang menggunakan beberapa fitur ES6:
+
+```javascript
+// Mendeklarasikan variabel dengan const dan let
+const PI = 3.14; // Nilai PI tidak dapat diubah
+let radius = 5; // Nilai radius dapat diubah
+
+// Membuat fungsi panah untuk menghitung luas lingkaran
+const area = (r) => PI * r * r;
+
+// Membuat template literal untuk menampilkan hasil
+console.log(`Luas lingkaran dengan radius ${radius} adalah ${area(radius)}`);
+
+// Membuat array dengan nilai-nilai acak
+const numbers = [23, 55, 21, 87, 56];
+
+// Menggunakan operator spread untuk mencari nilai maksimum
+let maxValue = Math.max(...numbers);
+
+// Menggunakan for/of loop untuk mencetak setiap nilai
+for (let num of numbers) {
+  console.log(num);
+}
+
+// Membuat map untuk menyimpan data mahasiswa
+const students = new Map();
+
+// Menambahkan data mahasiswa dengan menggunakan metode set
+students.set("101", {name: "Ali", major: "Computer Science"});
+students.set("102", {name: "Budi", major: "Mathematics"});
+students.set("103", {name: "Cici", major: "Biology"});
+
+// Mengakses data mahasiswa dengan menggunakan metode get
+console.log(students.get("102")); // {name: "Budi", major: "Mathematics"}
+
+// Menggunakan for/of loop untuk mengulangi pasangan kunci-nilai
+for (let [id, student] of students) {
+  console.log(`${id}: ${student.name}, ${student.major}`);
+}
+
+// Membuat kelas untuk merepresentasikan buku
+class Book {
+  // Konstruktor untuk menginisialisasi properti
+  constructor(title, author, year) {
+    this.title = title;
+    this.author = author;
+    this.year = year;
+  }
+
+  // Metode untuk mengembalikan deskripsi buku
+  getDescription() {
+    return `${this.title} was written by ${this.author} in ${this.year}`;
+  }
+}
+
+// Membuat objek buku dengan menggunakan kelas
+let book1 = new Book("The Catcher in the Rye", "J.D. Salinger", 1951);
+
+// Memanggil metode getDescription
+console.log(book1.getDescription()); // The Catcher in the Rye was written by J.D. Salinger in 1951
 ```
