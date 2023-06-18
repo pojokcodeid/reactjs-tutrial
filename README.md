@@ -24,6 +24,7 @@
 - [React State](#REACT-STATE)
 - [React Props](#REACT-PROPS)
 - [State Vs. Props](#State-Vs-Props)
+- [Constructor](#Constructor)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1317,3 +1318,144 @@ Secara singkat, perbedaan antara React state dan props adalah:
 - State digunakan untuk mengontrol perilaku komponen, sedangkan props digunakan untuk mengonfigurasi komponen.
 - State hanya bisa diubah oleh komponen itu sendiri, sedangkan props hanya bisa dikirimkan oleh komponen induk.
 
+## CONSTRUCTOR
+
+React constructor adalah metode yang secara otomatis dipanggil saat membuat objek dari kelas komponen. React constructor bisa digunakan untuk melakukan inisialisasi awal, seperti menetapkan nilai default untuk beberapa properti objek, atau memeriksa argumen yang dilewatkan. Singkatnya, React constructor membantu dalam pembuatan objek.
+
+Di React, constructor tidak berbeda. Constructor bisa digunakan untuk mengikat event handler ke komponen dan/atau menginisialisasi state lokal komponen. Metode constructor dipanggil sebelum komponen di-mount dan, seperti kebanyakan hal di React, memiliki beberapa aturan yang harus diikuti saat menggunakannya, yaitu:
+
+- Panggil super (props) sebelum menggunakan this.props
+Karena sifat dari constructor, objek this.props tidak tersedia langsung dan bisa menyebabkan bug. Constructor berikut akan melempar error:
+
+```javascript
+constructor() {
+  console.log(this.props);
+}
+```
+
+Sebagai gantinya, kita ambil nilai props dari constructor dan lewatkan ke metode super:
+
+```javascript
+constructor(props) {
+  super(props);
+  console.log(this.props);
+}
+```
+
+Ketika kita memanggil metode super, metode ini akan memanggil constructor dari kelas induk yang dalam kasus komponen React adalah React.Component.
+
+- Jangan pernah memanggil setState () di dalam constructor
+Constructor komponen Anda adalah tempat yang sempurna untuk menetapkan state awal komponen. Alih-alih menggunakan setState () seperti yang biasa Anda lakukan di metode lain di kelas Anda, Anda harus menetapkan state awal secara langsung:
+
+```javascript
+constructor(props) {
+  super(props);
+  this.state = {
+    name: 'Budi',
+    age: 22,
+  };
+}
+```
+
+Constructor adalah satu-satunya tempat yang bisa menetapkan state lokal secara langsung seperti itu. Di tempat lain di dalam komponen Anda, Anda harus mengandalkan setState ().
+
+- Hindari menetapkan nilai dari this.props ke this.state
+Ketika Anda menetapkan state awal komponen di dalam constructor, Anda harus mencoba menghindari menetapkan nilai dari properti. Ketika Anda melakukan hal seperti ini:
+
+```javascript
+constructor(props) {
+  super(props);
+  this.state = {
+    name: props.name,
+  };
+}
+```
+
+Anda akan kehilangan kemampuan untuk menjalankan setState () nanti dan memperbarui properti. Alih-alih menetapkan properti langsung ke state, Anda bisa langsung merujuk properti di kode Anda dengan memanggil this.props.name.
+
+- Ikuti event semua di satu tempat
+Bukan aturan atau kesalahan, tetapi perlu dicatat bahwa Anda bisa dengan mudah mengikat event handler Anda di dalam constructor:
+
+```javascript
+constructor(props) {
+  super(props);
+  this.state = {
+    // Menetapkan state awal
+  };
+  // Event handler kita
+  this.onClick = this.onClick.bind(this);
+  this.onKeyUp = this.onKeyUp.bind(this);
+  // dst...
+}
+```
+
+- Hindari menggunakan efek samping atau langganan di dalam constructor
+Saya mengerti, Anda baru saja membuat komponen baru dan Anda ingin menarik data dari API dan mengaturnya ke state. Namun, jangan lakukan itu di dalam constructor. Sebagai gantinya, gunakan metode componentDidMount () untuk melakukan hal tersebut.
+
+Contoh React constructor:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat kelas komponen App
+class App extends React.Component {
+  // Mendefinisikan constructor kelas komponen
+  constructor(props) {
+    // Memanggil constructor kelas induk
+    super(props);
+    // Mendefinisikan state awal
+    this.state = {
+      name: "Budi",
+      age: 22,
+    };
+    // Mengikat event handler ke komponen ini
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // Membuat metode untuk menangani klik tombol
+  handleClick() {
+    // Mengubah state dengan metode setState()
+    this.setState({
+      name: "Ani",
+      age: 21,
+    });
+  }
+
+  // Membuat metode render
+  render() {
+    // Mengembalikan elemen React menggunakan JSX dan state
+    return (
+      <div>
+        <h1>Hello, {this.state.name}!</h1>
+        <p>You are {this.state.age} years old</p>
+        <button onClick={this.handleClick}>Change name</button>
+      </div>
+    );
+  }
+}
+
+// Mengekspor kelas komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode untuk merender kelas komponen `App` ke dalam elemen HTML:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Mengimpor kelas komponen App dari file App.js
+import App from "./App";
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender kelas komponen App ke dalam elemen HTML
+ReactDOM.render(<App />, container);
+```
+
+Hasilnya adalah kelas komponen `App` akan menampilkan sebuah elemen `<h1>` dengan nama dan umur yang disimpan di state, dan sebuah tombol untuk mengubah nama. Ketika tombol diklik, metode handleClick akan dipanggil, yang akan mengubah state dengan metode setState, dan antarmuka pengguna akan diperbarui sesuai dengan state terbaru.
