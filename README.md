@@ -34,6 +34,7 @@
 - [React Router](#React-Router)
 - [React CSS](#React-CSS)
 - [React Hooks](#React-Hooks)
+- [React Flux Concept](#React-Flux-Concept)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2708,5 +2709,172 @@ root.render(<Counter />);
 ```
 
 Selain menggunakan Hooks bawaan, Anda juga bisa membuat Hooks kustom sendiri. Hooks kustom berguna untuk menyimpan logika stateful yang perlu digunakan di beberapa komponen¹. Kami akan membahas lebih lanjut tentang Hooks kustom di bagian selanjutnya.
+
+# REACT FLUX CONCEPT
+
+React Flux Concept adalah pola arsitektur yang digunakan untuk mengelola aliran data searah dalam komponen React¹. Flux memberikan struktur yang jelas untuk memisahkan logika aplikasi dari lapisan presentasi sehingga kode tetap terorganisir dan lebih mudah dipelihara seiring waktu². Hal ini pada akhirnya berdampak pada kinerja dan skalabilitas aplikasi yang dibangun dengan Flux.
+
+Flux memiliki tiga peran utama dalam menangani data: Dispatcher, Stores, dan Views (komponen React)². Aliran data dalam Flux adalah sebagai berikut:
+
+- View adalah komponen React yang menampilkan UI. Ketika ada interaksi pengguna (seperti event), View akan memicu Action.
+- Action adalah penanganan semua event yang dilewatkan oleh View. Lapisan ini biasanya digunakan untuk melakukan panggilan API. Setelah Action selesai, ia akan dikirimkan menggunakan Dispatcher. Action bisa berupa tambah post, hapus post, atau interaksi pengguna lainnya.
+- Dispatcher adalah pusat utama dan pendaftaran tunggal. Ia mengirimkan payload dari Action ke Store. Ia juga memastikan bahwa tidak ada efek berantai ketika sebuah Action dikirimkan ke Store.
+- Store adalah tempat menyimpan state dan logika aplikasi. Store akan memperbarui dirinya sendiri sebagai respons terhadap sebuah Action. Store juga akan memberitahu View bahwa ada perubahan yang terjadi, sehingga View bisa me-render ulang UI.
+
+Berikut adalah contoh kode yang menggunakan Flux:
+
+```jsx
+// File: App.js
+import React from "react";
+import { render } from "react-dom";
+import { Container } from "flux/utils";
+import TodoStore from "./data/TodoStore";
+import TodoActions from "./data/TodoActions";
+import TodoList from "./components/TodoList";
+
+class App extends React.Component {
+  static getStores() {
+    return [TodoStore];
+  }
+
+  static calculateState(prevState) {
+    return {
+      todos: TodoStore.getState(),
+      onAddTodo: TodoActions.addTodo,
+      onDeleteTodo: TodoActions.deleteTodo,
+    };
+  }
+
+  render() {
+    return <TodoList {...this.state} />;
+  }
+}
+
+const app = Container.create(App);
+
+render(<app />, document.getElementById("root"));
+```
+
+```jsx
+// File: TodoList.js
+import React from "react";
+
+export default class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "" };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    if (this.state.value.trim()) {
+      this.props.onAddTodo(this.state.value);
+      this.setState({ value: "" });
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Todo List</h1>
+        <ul>
+          {this.props.todos.map((todo) => (
+            <li key={todo.id}>
+              {todo.text}
+              <button onClick={() => this.props.onDeleteTodo(todo.id)}>
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Add</button>
+        </form>
+      </div>
+    );
+  }
+}
+```
+
+```jsx
+// File: TodoActions.js
+import AppDispatcher from "./AppDispatcher";
+
+const TodoActions = {
+  addTodo: function (text) {
+    AppDispatcher.dispatch({
+      actionType: "ADD_TODO",
+      text: text,
+    });
+  },
+
+  deleteTodo: function (id) {
+    AppDispatcher.dispatch({
+      actionType: "DELETE_TODO",
+      id: id,
+    });
+  },
+};
+
+export default TodoActions;
+```
+
+```jsx
+// File: AppDispatcher.js
+import { Dispatcher } from "flux";
+
+export default new Dispatcher();
+```
+
+```jsx
+// File: TodoStore.js
+import Immutable from "immutable";
+import { ReduceStore } from "flux/utils";
+import AppDispatcher from "./AppDispatcher";
+
+class TodoStore extends ReduceStore {
+  constructor() {
+    super(AppDispatcher);
+  }
+
+  getInitialState() {
+    return Immutable.OrderedMap();
+  }
+
+  reduce(state, action) {
+    switch (action.actionType) {
+      case "ADD_TODO":
+        // Don't add todos with no text.
+        if (!action.text) {
+          return state;
+        }
+        const id = Date.now().toString();
+        return state.set(id, {
+          id,
+          text: action.text,
+        });
+
+      case "DELETE_TODO":
+        return state.delete(action.id);
+
+      default:
+        return state;
+    }
+  }
+}
+
+export default new TodoStore();
+```
 
 
