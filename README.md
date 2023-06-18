@@ -15,6 +15,7 @@
   - [ES6 Array Method](#ES6-ARRAY-METHOD)
   - [ES6 Destructuring](#ES6-DESTRUCTURING)
   - [ES6 Spread Operator](#ES6-SPREAD-OPERATOR)
+  - [ES6 Modules](#ES6-MODULES)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -614,4 +615,105 @@ let mobil = { merk: "Toyota", warna: "hitam" };
 let updateMobil = { tahun: 2020, warna: "merah" };
 let mobilBaru = { ...mobil, ...updateMobil }; // Menggunakan spread operator untuk menggabungkan objek
 console.log(mobilBaru); // { merk: 'Toyota', warna: 'merah', tahun: 2020 }
+```
+### ES6 MODULES
+ES6 modules adalah fitur yang memungkinkan kita untuk membagi program JavaScript menjadi beberapa file yang saling terhubung, atau modul, yang bisa diimpor dan diekspor satu sama lain.
+
+Dengan ES6 modules, kita bisa mengatur kode menjadi unit-unit yang lebih kecil dan lebih mudah dipelihara, serta menghindari konflik nama variabel atau fungsi antara file yang berbeda.
+
+Untuk menggunakan ES6 modules, kita perlu menggunakan kata kunci `import` dan `export` untuk menentukan apa yang ingin diimpor atau diekspor dari suatu modul.
+
+Contoh ES6 modules:
+
+Misalkan kita memiliki file `math.js` yang berisi beberapa fungsi matematika:
+
+```javascript
+// math.js
+// Mendefinisikan fungsi-fungsi matematika
+function tambah(a, b) {
+  return a + b;
+}
+
+function kurang(a, b) {
+  return a - b;
+}
+
+function kali(a, b) {
+  return a * b;
+}
+
+function bagi(a, b) {
+  return a / b;
+}
+
+// Mengekspor fungsi-fungsi yang ingin dibagikan ke modul lain
+export { tambah, kurang, kali, bagi };
+```
+
+Kemudian kita memiliki file `app.js` yang ingin menggunakan fungsi-fungsi dari `math.js`:
+
+```javascript
+// app.js
+// Mengimpor fungsi-fungsi dari math.js
+import { tambah, kurang, kali, bagi } from "./math.js";
+
+// Menggunakan fungsi-fungsi yang diimpor
+console.log(tambah(1, 2)); // 3
+console.log(kurang(5, 3)); // 2
+console.log(kali(4, 6)); // 24
+console.log(bagi(10, 2)); // 5
+```
+
+Perhatikan bahwa kita perlu menentukan path relatif dari file yang ingin diimpor dengan menggunakan `./` di depan nama file.
+
+Kita juga bisa mengimpor semua fungsi yang diekspor dari suatu modul dengan menggunakan sintaks `* as nama`:
+
+```javascript
+// app.js
+// Mengimpor semua fungsi dari math.js dengan nama Math
+import * as Math from "./math.js";
+
+// Menggunakan fungsi-fungsi dengan nama Math
+console.log(Math.tambah(1, 2)); // 3
+console.log(Math.kurang(5, 3)); // 2
+console.log(Math.kali(4, 6)); // 24
+console.log(Math.bagi(10, 2)); // 5
+```
+
+Kita juga bisa mengekspor nilai default dari suatu modul dengan menggunakan kata kunci `default`. Nilai default ini bisa diimpor tanpa menggunakan kurung kurawal:
+
+```javascript
+// math.js
+// Mendefinisikan fungsi-fungsi matematika
+function tambah(a, b) {
+  return a + b;
+}
+
+function kurang(a, b) {
+  return a - b;
+}
+
+function kali(a, b) {
+  return a * b;
+}
+
+function bagi(a, b) {
+  return a / b;
+}
+
+// Mengekspor fungsi tambah sebagai nilai default dan fungsi lainnya sebagai nama-nama tertentu
+export default tambah;
+export { kurang, kali, bagi };
+```
+
+```javascript
+// app.js
+// Mengimpor fungsi tambah sebagai nilai default dan fungsi lainnya dengan nama-nama tertentu
+import tambah, { kurang, kali, bagi } from "./math.js";
+
+// Menggunakan fungsi-fungsi yang diimpor
+console.log(tambah(1, 2)); // 3
+console.log(kurang(5, 3)); // 2
+console.log(kali(4, 6)); // 24
+console.log(bagi(10, 2)); // 5
 ```
