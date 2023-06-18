@@ -16,6 +16,7 @@
   - [ES6 Destructuring](#ES6-DESTRUCTURING)
   - [ES6 Spread Operator](#ES6-SPREAD-OPERATOR)
   - [ES6 Modules](#ES6-MODULES)
+  - [ES6 Ternary Operator](#ES6-TERNARY-OPERATOR)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -716,4 +717,60 @@ console.log(tambah(1, 2)); // 3
 console.log(kurang(5, 3)); // 2
 console.log(kali(4, 6)); // 24
 console.log(bagi(10, 2)); // 5
+```
+### ES6 TERNARY OPERATOR
+Ternary operator adalah operator yang memungkinkan kita untuk menulis sebuah pernyataan kondisional dalam satu baris, sebagai alternatif dari if...else statement.
+
+Ternary operator memiliki sintaks sebagai berikut:
+
+```javascript
+condition ? exprIfTrue : exprIfFalse
+```
+
+Di mana:
+
+- `condition` adalah sebuah ekspresi yang bernilai truthy atau falsy.
+- `exprIfTrue` adalah sebuah ekspresi yang dieksekusi jika `condition` bernilai truthy.
+- `exprIfFalse` adalah sebuah ekspresi yang dieksekusi jika `condition` bernilai falsy.
+
+Contoh ternary operator:
+
+```javascript
+// Tanpa ternary operator
+let umur = 20;
+let minuman;
+if (umur >= 21) {
+  minuman = "Bir";
+} else {
+  minuman = "Jus";
+}
+console.log(minuman); // Jus
+
+// Dengan ternary operator
+let umur = 20;
+let minuman = umur >= 21 ? "Bir" : "Jus";
+console.log(minuman); // Jus
+```
+
+Ternary operator juga bisa digunakan secara berantai, dengan cara menempatkan ternary operator lain sebagai salah satu ekspresi:
+
+```javascript
+// Tanpa ternary operator
+let nilai = 80;
+let grade;
+if (nilai >= 90) {
+  grade = "A";
+} else if (nilai >= 80) {
+  grade = "B";
+} else if (nilai >= 70) {
+  grade = "C";
+} else {
+  grade = "D";
+}
+console.log(grade); // B
+
+// Dengan ternary operator
+let nilai = 80;
+let grade = nilai >= 90 ? "A" : nilai >= 80 ? "B" : nilai >= 70 ? "C" : "D";
+console.log(grade); // B
 ```
