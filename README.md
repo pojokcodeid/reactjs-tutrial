@@ -9,6 +9,7 @@
 - [Memulai React dengan NodeJS](#MEMULAI-REACT-DENGAN-NODEJS)
 - [Mengenal ES6](#ES6)
   - [Apa itu ES6](#APA-ITU-ES6)
+  - [ES6 Class](#ES6-CLASS)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -240,4 +241,53 @@ let book1 = new Book("The Catcher in the Rye", "J.D. Salinger", 1951);
 
 // Memanggil metode getDescription
 console.log(book1.getDescription()); // The Catcher in the Rye was written by J.D. Salinger in 1951
+```
+### ES6 CLASS
+Class di ES6 adalah sebuah fitur baru yang memungkinkan Anda membuat template untuk objek JavaScript dengan sintaks yang lebih sederhana dan elegan. Class di ES6 adalah jenis fungsi khusus, tetapi alih-alih menggunakan kata kunci **function** untuk memulainya, kita menggunakan kata kunci **class**, dan properti ditetapkan di dalam metode **constructor()**³. Class di ES6 juga mendukung pewarisan, yaitu kemampuan untuk membuat class turunan dari class lain dengan menggunakan kata kunci **extends** dan **super()**⁴.
+
+Berikut adalah contoh kode sederhana yang menggunakan class di ES6:
+
+```javascript
+// Membuat class untuk merepresentasikan buku
+class Book {
+  // Konstruktor untuk menginisialisasi properti
+  constructor(title, author, year) {
+    this.title = title;
+    this.author = author;
+    this.year = year;
+  }
+
+  // Metode untuk mengembalikan deskripsi buku
+  getDescription() {
+    return `${this.title} was written by ${this.author} in ${this.year}`;
+  }
+}
+
+// Membuat objek buku dengan menggunakan class
+let book1 = new Book("The Catcher in the Rye", "J.D. Salinger", 1951);
+
+// Memanggil metode getDescription
+console.log(book1.getDescription()); // The Catcher in the Rye was written by J.D. Salinger in 1951
+
+// Membuat class turunan dari Book untuk merepresentasikan novel
+class Novel extends Book {
+  // Konstruktor untuk menginisialisasi properti tambahan
+  constructor(title, author, year, genre) {
+    // Memanggil konstruktor dari class induk
+    super(title, author, year);
+    this.genre = genre;
+  }
+
+  // Metode untuk mengembalikan deskripsi novel dengan genre
+  getDescription() {
+    // Memanggil metode dari class induk
+    return super.getDescription() + ` It is a ${this.genre} novel.`;
+  }
+}
+
+// Membuat objek novel dengan menggunakan class Novel
+let novel1 = new Novel("Nineteen Eighty-Four", "George Orwell", 1949, "dystopian");
+
+// Memanggil metode getDescription
+console.log(novel1.getDescription()); // Nineteen Eighty-Four was written by George Orwell in 1949. It is a dystopian novel.
 ```
