@@ -18,6 +18,7 @@
   - [ES6 Spread Operator](#ES6-SPREAD-OPERATOR)
   - [ES6 Modules](#ES6-MODULES)
   - [ES6 Ternary Operator](#ES6-TERNARY-OPERATOR)
+- [React Render HTML](#REACT-RENDER-HTML)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -823,3 +824,94 @@ let nilai = 80;
 let grade = nilai >= 90 ? "A" : nilai >= 80 ? "B" : nilai >= 70 ? "C" : "D";
 console.log(grade); // B
 ```
+## REACT RENDER HTML
+React render HTML adalah proses menampilkan elemen-elemen HTML yang dibuat dengan menggunakan React ke dalam halaman web.
+
+React menggunakan JSX, yaitu sebuah sintaks yang memungkinkan kita untuk menulis elemen HTML di dalam kode JavaScript. JSX memudahkan kita untuk membuat komponen React yang interaktif dan dinamis.
+
+Untuk merender HTML dengan React, kita perlu menggunakan fungsi `ReactDOM.render()` yang disediakan oleh pustaka `react-dom`. Fungsi ini menerima dua argumen, yaitu elemen React yang ingin dirender dan elemen HTML yang menjadi tempat tujuan render.
+
+Contoh React render HTML:
+
+Misalkan kita memiliki file `index.html` yang berisi elemen `<div id="root"></div>` sebagai tempat tujuan render:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Render HTML</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode React untuk membuat elemen HTML menggunakan JSX:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Membuat elemen React menggunakan JSX
+const element = (
+  <h1>Hello, world!</h1>
+);
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender elemen React ke dalam elemen HTML
+ReactDOM.render(element, container);
+```
+
+Hasilnya adalah elemen `<h1>Hello, world!</h1>` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
+
+React render HTML juga bisa digunakan untuk merender komponen React yang lebih kompleks, seperti kelas komponen atau fungsi komponen. Komponen React adalah fungsi atau kelas yang mengembalikan elemen React.
+
+Contoh React render HTML dengan komponen:
+
+Misalkan kita memiliki file `App.js` yang berisi kode untuk membuat sebuah kelas komponen bernama `App`:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat kelas komponen App
+class App extends React.Component {
+  // Membuat metode render
+  render() {
+    // Mengembalikan elemen React menggunakan JSX
+    return (
+      <div>
+        <h1>This is a class component</h1>
+        <p>This is some text</p>
+      </div>
+    );
+  }
+}
+
+// Mengekspor kelas komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode untuk merender komponen `App` ke dalam elemen HTML:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Mengimpor kelas komponen App dari file App.js
+import App from "./App";
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender komponen App ke dalam elemen HTML
+ReactDOM.render(<App />, container);
+```
+
+Hasilnya adalah komponen `App` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
