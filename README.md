@@ -27,7 +27,7 @@
 - [Constructor](#Constructor)
 - [React API](#React-API)
 - [React Form](#React-Form)
-- [React Event](#React-Events)
+- [React Event](#REACT-EVENTS)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1739,6 +1739,7 @@ function MyForm() {
 ```
 
 ## REACT EVENTS
+
 React Events adalah aksi yang bisa dipicu sebagai akibat dari interaksi pengguna atau sistem dengan halaman web. Misalnya, klik mouse, muat halaman web, tekan tombol, ubah ukuran jendela, dan interaksi lainnya disebut event. React memiliki sistem event sendiri yang sangat mirip dengan menangani event pada elemen DOM.
 
 Sistem event React dikenal sebagai Synthetic Event, yaitu pembungkus lintas browser dari event asli browser. Synthetic Event memiliki antarmuka yang sama dengan event asli browser, termasuk stopPropagation() dan preventDefault(), kecuali event tersebut bekerja identik di semua browser.
