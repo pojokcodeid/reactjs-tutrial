@@ -1635,7 +1635,7 @@ export default BookList;
 
 ## REACT FORM 
 
-React Forms adalah cara untuk memungkinkan pengguna berinteraksi dengan halaman web dengan memasukkan dan mengirimkan data di dalam komponen React. Seperti di HTML, React menggunakan elemen form seperti <input>, <textarea>, <select>, dan lain-lain untuk membuat form.
+React Forms adalah cara untuk memungkinkan pengguna berinteraksi dengan halaman web dengan memasukkan dan mengirimkan data di dalam komponen React. Seperti di HTML, React menggunakan elemen form seperti input, textarea, select, dan lain-lain untuk membuat form.
 
 Menambahkan Form di React
 Anda bisa menambahkan form dengan React seperti elemen lainnya:
