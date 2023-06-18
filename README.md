@@ -35,6 +35,7 @@
 - [React CSS](#React-CSS)
 - [React Hooks](#React-Hooks)
 - [React Flux Concept](#React-Flux-Concept)
+- [React Redux](#React-Redux)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2710,7 +2711,7 @@ root.render(<Counter />);
 
 Selain menggunakan Hooks bawaan, Anda juga bisa membuat Hooks kustom sendiri. Hooks kustom berguna untuk menyimpan logika stateful yang perlu digunakan di beberapa komponen¹. Kami akan membahas lebih lanjut tentang Hooks kustom di bagian selanjutnya.
 
-# REACT FLUX CONCEPT
+## REACT FLUX CONCEPT
 
 React Flux Concept adalah pola arsitektur yang digunakan untuk mengelola aliran data searah dalam komponen React¹. Flux memberikan struktur yang jelas untuk memisahkan logika aplikasi dari lapisan presentasi sehingga kode tetap terorganisir dan lebih mudah dipelihara seiring waktu². Hal ini pada akhirnya berdampak pada kinerja dan skalabilitas aplikasi yang dibangun dengan Flux.
 
@@ -2877,4 +2878,4 @@ class TodoStore extends ReduceStore {
 export default new TodoStore();
 ```
 
-
+## R
