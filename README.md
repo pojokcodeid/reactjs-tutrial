@@ -20,6 +20,7 @@
   - [ES6 Ternary Operator](#ES6-TERNARY-OPERATOR)
 - [React Render HTML](#REACT-RENDER-HTML)
 - [React JSX](#REACT-JSX)
+- [React Components](#REACT-COMPONENTS)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -983,3 +984,92 @@ export default element;
 Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
 
 Hasilnya adalah elemen `<h1>Hello, Budi!</h1>` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
+
+## REACT COMPONENTS
+React components adalah bagian-bagian kode yang mandiri dan dapat digunakan kembali. Mereka memiliki tujuan yang sama dengan fungsi JavaScript, tetapi bekerja secara terpisah dan mengembalikan HTML.
+
+React components memungkinkan kita untuk membagi antarmuka pengguna menjadi unit-unit yang lebih kecil dan lebih mudah dipelihara, serta menghindari pengulangan kode.
+
+React components ada dua jenis, yaitu kelas komponen dan fungsi komponen. Dalam tutorial ini, kita akan fokus pada fungsi komponen.
+
+Fungsi komponen adalah fungsi JavaScript yang menerima props (properti) sebagai argumen dan mengembalikan elemen React². Fungsi komponen biasanya ditulis dengan menggunakan JSX, yaitu sebuah sintaks yang memungkinkan kita untuk menulis elemen HTML di dalam kode JavaScript.
+
+Contoh React components:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat fungsi komponen App
+function App() {
+  // Mengembalikan elemen React menggunakan JSX
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <p>This is a function component</p>
+    </div>
+  );
+}
+
+// Mengekspor fungsi komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Mengimpor fungsi komponen App dari file App.js
+import App from "./App";
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender fungsi komponen App ke dalam elemen HTML
+ReactDOM.render(<App />, container);
+```
+
+Hasilnya adalah fungsi komponen `App` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
+
+Fungsi komponen juga bisa menerima props sebagai argumen. Props adalah objek yang berisi data atau informasi yang ingin dikirimkan dari komponen induk ke komponen anak³. Props bersifat read-only, artinya tidak bisa diubah oleh komponen penerima.
+
+Contoh React components dengan props:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat fungsi komponen Greeting
+function Greeting(props) {
+  // Mengembalikan elemen React menggunakan JSX dan props
+  return (
+    <h1>Hello, {props.name}!</h1>
+  );
+}
+
+// Membuat fungsi komponen App
+function App() {
+  // Mengembalikan elemen React menggunakan JSX dan fungsi komponen Greeting
+  return (
+    <div>
+      <Greeting name="Budi" />
+      <Greeting name="Ani" />
+      <Greeting name="Rudi" />
+    </div>
+  );
+}
+
+// Mengekspor fungsi komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
+
+Hasilnya adalah fungsi komponen `App` akan menampilkan tiga fungsi komponen `Greeting` dengan props name yang berbeda-beda di dalam elemen `<div id="root"></div>` di halaman web.
