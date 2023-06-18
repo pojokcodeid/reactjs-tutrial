@@ -25,6 +25,7 @@
 - [React Props](#REACT-PROPS)
 - [State Vs. Props](#State-Vs-Props)
 - [Constructor](#Constructor)
+- [React API](#React-API)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1459,3 +1460,126 @@ ReactDOM.render(<App />, container);
 ```
 
 Hasilnya adalah kelas komponen `App` akan menampilkan sebuah elemen `<h1>` dengan nama dan umur yang disimpan di state, dan sebuah tombol untuk mengubah nama. Ketika tombol diklik, metode handleClick akan dipanggil, yang akan mengubah state dengan metode setState, dan antarmuka pengguna akan diperbarui sesuai dengan state terbaru.
+
+## REACT API
+
+React Component API adalah kumpulan metode dan properti yang terkait dengan kelas komponen React. React Component API memungkinkan kita untuk membuat, mengelola, dan memanipulasi komponen React dengan berbagai cara.
+
+React Component API terdiri dari beberapa bagian, yaitu:
+
+- React.Component: Ini adalah kelas dasar untuk komponen React yang didefinisikan menggunakan kelas ES6. React.Component memiliki beberapa metode dan properti yang bisa kita gunakan untuk mengontrol perilaku dan siklus hidup komponen. Beberapa metode dan properti yang umum digunakan adalah:
+
+  - constructor(props): Ini adalah metode yang dipanggil secara otomatis saat membuat objek dari kelas komponen. Metode ini bisa digunakan untuk menginisialisasi state awal dan mengikat event handler ke komponen.
+  - render(): Ini adalah metode yang harus kita definisikan untuk mengembalikan elemen React yang akan ditampilkan oleh komponen. Metode ini harus murni, artinya tidak boleh mengubah state atau berinteraksi dengan DOM secara langsung.
+  - componentDidMount(): Ini adalah metode yang dipanggil setelah komponen di-mount ke DOM. Metode ini bisa digunakan untuk melakukan operasi yang membutuhkan akses ke DOM atau data eksternal, seperti memanggil API atau mengatur timer.
+  - componentDidUpdate(prevProps, prevState, snapshot): Ini adalah metode yang dipanggil setelah komponen diperbarui karena perubahan state atau props. Metode ini bisa digunakan untuk melakukan operasi berdasarkan perbandingan antara nilai sebelum dan sesudah perubahan, seperti memperbarui DOM atau memanggil API.
+  - componentWillUnmount(): Ini adalah metode yang dipanggil sebelum komponen di-unmount dari DOM. Metode ini bisa digunakan untuk melakukan operasi pembersihan, seperti membatalkan permintaan jaringan atau menghapus event listener.
+  - setState(updater, callback): Ini adalah metode yang digunakan untuk mengubah state komponen secara asinkron. Metode ini menerima dua argumen, yaitu updater dan callback. Updater bisa berupa objek atau fungsi yang mengembalikan objek, yang menentukan bagian state yang akan diubah. Callback adalah fungsi opsional yang akan dipanggil setelah state diperbarui dan komponen dirender ulang.
+  - props: Ini adalah properti yang berisi objek props yang dikirimkan ke komponen oleh komponen induk. Props bersifat read-only, artinya tidak bisa diubah oleh komponen penerima. Props bisa berupa string, angka, boolean, array, objek, fungsi, atau JSX.
+  - state: Ini adalah properti yang berisi objek state yang menampung data atau informasi yang bisa berubah seiring waktu di dalam komponen. State bersifat privat, artinya hanya bisa diakses dan diubah oleh komponen itu sendiri. State bisa berupa string, angka, boolean, array, objek, atau JSX.
+
+- React.PureComponent: Ini adalah kelas turunan dari React.Component yang memiliki perilaku khusus untuk metode shouldComponentUpdate(). Metode ini menentukan apakah komponen perlu dirender ulang atau tidak berdasarkan perubahan state atau props. React.PureComponent melakukan perbandingan dangkal (shallow comparison) antara state dan props sebelumnya dengan state dan props saat ini, dan hanya merender ulang jika ada perbedaan. Kelas ini berguna untuk meningkatkan kinerja komponen dengan menghindari render ulang yang tidak perlu.
+
+- React.memo: Ini adalah fungsi tingkat tinggi (higher-order function) yang digunakan untuk membungkus fungsi komponen dan memberikan perilaku serupa dengan React.PureComponent. Fungsi ini melakukan perbandingan dangkal antara props sebelumnya dengan props saat ini, dan hanya merender ulang jika ada perbedaan. Fungsi ini berguna untuk meningkatkan kinerja fungsi komponen dengan menghindari render ulang yang tidak perlu.
+
+- React.createElement(type, props, children): Ini adalah fungsi yang digunakan untuk membuat elemen React dari tipe tertentu. Fungsi ini menerima tiga argumen, yaitu type, props, dan children. Type bisa berupa string yang mewakili elemen HTML, atau fungsi atau kelas yang mewakili komponen React. Props adalah objek opsional yang berisi atribut atau data yang ingin dikirimkan ke elemen. Children adalah argumen opsional yang berisi elemen anak atau konten yang ingin ditampilkan di dalam elemen. Fungsi ini biasanya tidak dipanggil secara langsung jika kita menggunakan JSX, karena JSX adalah sintaks gula (syntactic sugar) untuk memanggil fungsi ini.
+
+- React.cloneElement(element, props, children): Ini adalah fungsi yang digunakan untuk mengkloning elemen React dan menggabungkan props baru dengan props asli. Fungsi ini menerima tiga argumen, yaitu element, props, dan children. Element adalah elemen React yang ingin dikloning. Props adalah objek opsional yang berisi atribut atau data baru yang ingin ditambahkan ke elemen. Children adalah argumen opsional yang berisi elemen anak atau konten baru yang ingin ditampilkan di dalam elemen.
+
+- React.isValidElement(object): Ini adalah fungsi yang digunakan untuk memeriksa apakah objek yang diberikan adalah elemen React yang valid atau tidak. Fungsi ini menerima satu argumen, yaitu object, dan mengembalikan nilai boolean.
+
+- React.Children: Ini adalah objek yang berisi metode-metode bantuan untuk mengoperasikan koleksi children properti dari komponen. Beberapa metode yang umum digunakan adalah:
+
+  - React.Children.map(children, function): Ini adalah metode yang digunakan untuk memetakan setiap elemen anak ke fungsi tertentu dan mengembalikan array baru.
+  - React.Children.forEach(children, function): Ini adalah metode yang digunakan untuk menjalankan fungsi tertentu pada setiap elemen anak tanpa mengembalikan array baru.
+  - React.Children.count(children): Ini adalah metode yang digunakan untuk menghitung jumlah elemen anak.
+  - React.Children.only(children): Ini adalah metode yang digunakan untuk memverifikasi bahwa hanya ada satu elemen anak dan mengembalikannya.
+  - React.Children.toArray(children): Ini adalah metode yang digunakan untuk mengubah koleksi children menjadi array datar.
+
+- React.Fragment: Ini adalah komponen khusus yang digunakan untuk merender beberapa elemen tanpa wrapper. React.Fragment bisa ditulis dengan menggunakan sintaks seperti tag HTML kosong (<></>) atau dengan menggunakan React.Fragment secara eksplisit (<React.Fragment></React.Fragment>). Komponen ini berguna untuk menghindari pembuatan DOM node tambahan yang tidak perlu.
+
+- React.createRef(): Ini adalah fungsi yang digunakan untuk membuat objek ref, yaitu sebuah kontainer yang bisa menyimpan referensi ke elemen DOM atau komponen kelas. Fungsi ini biasanya dipanggil di dalam constructor komponen dan disimpan sebagai properti komponen. Objek ref memiliki properti current yang menunjuk ke node DOM atau instance komponen kelas.
+
+- React.forwardRef(renderFunction): Ini adalah fungsi tingkat tinggi (higher-order function) yang digunakan untuk meneruskan ref dari komponen induk ke komponen anak. Fungsi ini menerima sebuah fungsi render sebagai argumen, yang menerima dua parameter, yaitu props dan ref. Fungsi render harus mengembalikan sebuah elemen React dan meneruskan ref ke elemen tersebut.
+
+- React.lazy(dynamicImport): Ini adalah fungsi tingkat tinggi (higher-order function) yang digunakan untuk memuat komponen secara dinamis dengan menggunakan sintaks import() . Fungsi ini menerima sebuah fungsi sebagai argumen, yang harus mengembalikan sebuah promise yang menyelesaikan modul default dari komponen. Komponen hasil dari fungsi ini harus dirender di dalam komponen Suspense.
+
+- React.Suspense: Ini adalah komponen khusus yang digunakan untuk menampilkan fallback UI sementara menunggu konten tertentu dimuat, seperti komponen dinamis atau data fetching. Komponen ini memiliki properti fallback, yaitu elemen React yang akan ditampilkan saat kontennya belum siap.
+
+Berikut adalah contoh penggunaan React API untuk membuat sebuah aplikasi sederhana yang menampilkan daftar buku dan memungkinkan pengguna untuk menambahkan buku baru ke daftar.
+
+```javascript
+// Mengimpor React dan useState hook
+import React, { useState } from "react";
+
+// Membuat fungsi komponen BookList
+function BookList() {
+  // Mendefinisikan state awal untuk menyimpan daftar buku
+  const [books, setBooks] = useState([
+    { id: 1, title: "The Lord of the Rings" },
+    { id: 2, title: "Harry Potter" },
+    { id: 3, title: "The Hunger Games" },
+  ]);
+
+  // Mendefinisikan state awal untuk menyimpan input judul buku
+  const [title, setTitle] = useState("");
+
+  // Membuat fungsi untuk menangani perubahan input
+  const handleChange = (e) => {
+    // Mengambil nilai input dari event object
+    const value = e.target.value;
+    // Mengubah state title dengan nilai input
+    setTitle(value);
+  };
+
+  // Membuat fungsi untuk menangani submit form
+  const handleSubmit = (e) => {
+    // Mencegah perilaku default dari form
+    e.preventDefault();
+    // Mengecek apakah input tidak kosong
+    if (title) {
+      // Membuat objek buku baru dengan id dan title
+      const newBook = { id: Date.now(), title };
+      // Mengubah state books dengan menambahkan buku baru ke array
+      setBooks([...books, newBook]);
+      // Mengosongkan state title
+      setTitle("");
+    }
+  };
+
+  // Mengembalikan elemen React menggunakan JSX dan state
+  return (
+    <div className="container">
+      <h1>Book List</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={title}
+          onChange={handleChange}
+          placeholder="Enter book title"
+        />
+        <button type="submit">Add Book</button>
+      </form>
+      <ul>
+        {/* Menggunakan React.Children.map untuk memetakan setiap elemen books ke fungsi komponen Book */}
+        {React.Children.map(books, (book) => (
+          <Book book={book} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Membuat fungsi komponen Book
+function Book({ book }) {
+  // Mengembalikan elemen React menggunakan JSX dan props
+  return (
+    <li>
+      {book.title} - {book.id}
+    </li>
+  );
+}
+
+// Mengekspor fungsi komponen BookList sebagai default
+export default BookList;
+```
