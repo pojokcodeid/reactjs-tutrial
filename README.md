@@ -35,7 +35,6 @@
 - [React CSS](#React-CSS)
 - [React Hooks](#React-Hooks)
 - [React Flux Concept](#React-Flux-Concept)
-- [React Redux](#React-Redux)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2878,4 +2877,4 @@ class TodoStore extends ReduceStore {
 export default new TodoStore();
 ```
 
-##
+
