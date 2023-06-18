@@ -29,6 +29,7 @@
 - [React Form](#React-Form)
 - [React Event](#REACT-EVENTS)
 - [React Keys](#React-Keys)
+- [React Refs](#React-Refs)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2065,5 +2066,194 @@ Key yang tidak stabil bisa disebabkan oleh beberapa hal, seperti:
 - Menggunakan nilai yang berasal dari props atau state sebagai key. Nilai yang berasal dari props atau state bisa berubah karena aksi pengguna atau pembaruan data. Ini bisa menyebabkan React kehilangan jejak item daftar atau menimbulkan konflik dengan key lain.
 
 Key yang stabil biasanya berasal dari data asli yang digunakan untuk membuat daftar, seperti ID unik atau slug. Jika data asli tidak memiliki nilai unik dan stabil, kita harus membuatnya sendiri dan menyimpannya di tempat yang aman, seperti database atau penyimpanan lokal.
+
+## REACT REFS
+
+React Refs adalah cara untuk mengakses node DOM atau elemen React yang dibuat di dalam metode render. Dalam alur data React yang biasa, props adalah satu-satunya cara yang digunakan komponen induk untuk berinteraksi dengan anak-anaknya. Untuk memodifikasi anak, Anda me-render ulang dengan props baru. Namun, ada beberapa kasus di mana Anda perlu memodifikasi anak secara imperatif di luar alur data biasa. Anak yang akan dimodifikasi bisa berupa instance dari komponen React, atau bisa berupa elemen DOM. Untuk kedua kasus ini, React menyediakan jalan keluar.
+
+Kapan Menggunakan Refs
+Ada beberapa kasus penggunaan yang baik untuk refs:
+
+- Mengelola fokus, pemilihan teks, atau pemutaran media.
+- Memicu animasi imperatif.
+- Mengintegrasikan dengan pustaka DOM pihak ketiga.
+
+Hindari menggunakan refs untuk hal apa pun yang bisa dilakukan secara deklaratif. Misalnya, alih-alih mengekspos metode open() dan close() pada komponen Dialog, lewatkan prop isOpen kepadanya.
+
+Jangan Terlalu Sering Menggunakan Refs
+Kecenderungan pertama Anda mungkin adalah menggunakan refs untuk "membuat sesuatu terjadi" di aplikasi Anda. Jika ini kasusnya, luangkan waktu sejenak dan pikirkan lebih kritis tentang di mana state harus dimiliki dalam hirarki komponen. Seringkali, menjadi jelas bahwa tempat yang tepat untuk "memiliki" state tersebut adalah di level yang lebih tinggi dalam hirarki. Lihat panduan Lifting State Up untuk contoh-contohnya.
+
+Membuat Refs
+Refs dibuat menggunakan React.createRef() dan dilampirkan ke elemen React melalui atribut ref. Refs biasanya ditetapkan ke properti instance ketika sebuah komponen dibuat sehingga mereka bisa dirujuk di seluruh komponen.
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+  render() {
+    return <div ref={this.myRef} />;
+  }
+}
+```
+
+Mengakses Refs
+Ketika sebuah ref dilewatkan ke sebuah elemen dalam render, sebuah referensi ke node menjadi dapat diakses di atribut current dari ref.
+
+```jsx
+const node = this.myRef.current;
+```
+
+Nilai dari ref berbeda tergantung pada jenis node:
+
+- Ketika atribut ref digunakan pada elemen HTML, ref yang dibuat di konstruktor dengan React.createRef() menerima elemen DOM dasar sebagai properti current-nya.
+- Ketika atribut ref digunakan pada komponen kelas kustom, objek ref menerima instance terpasang dari komponen sebagai current-nya.
+- Anda tidak boleh menggunakan atribut ref pada komponen fungsi karena mereka tidak memiliki instance.
+
+Menambahkan Ref ke Elemen DOM
+Kode ini menggunakan ref untuk menyimpan referensi ke node DOM:
+
+```jsx
+class CustomTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    // membuat sebuah ref untuk menyimpan elemen textInput DOM
+    this.textInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
+  }
+
+  focusTextInput() {
+    // Secara eksplisit fokus teks input menggunakan API DOM asli
+    // Catatan: kita mengakses "current" untuk mendapatkan node DOM
+    this.textInput.current.focus();
+  }
+
+  render() {
+    // memberitahu React bahwa kita ingin mengasosiasikan ref
+    // yang dibuat dengan elemen <input> yang kita render.
+    return (
+      <div>
+        <input type="text" ref={this.textInput} />
+        <input type="button" value="Focus the text input" onClick={this.focusTextInput} />
+      </div>
+    );
+  }
+}
+```
+
+React akan menetapkan elemen DOM asli ke properti current dari ref saat melewatkan elemen tersebut ke callback ref.
+
+Menambahkan Ref ke Komponen Kelas
+Jika kita ingin membungkus elemen HTML bawaan untuk menyesuaikan perilaku, maka kita harus meneruskan semua prop ke elemen bawaan yang kita render.
+
+```jsx
+function CustomTextInput(props) {
+  // textInput harus dideklarasikan di sini sehingga ref bisa merujuk kepadanya
+  const textInput = useRef(null);
+
+  function handleClick() {
+    textInput.current.focus();
+  }
+
+  return (
+    <div>
+      <input type="text" ref={textInput} />
+      <input type="button" value="Focus the text input" onClick={handleClick} />
+    </div>
+  );
+}
+```
+
+Namun, kita juga bisa menggunakan ref untuk mengakses instance komponen kelas kustom. Jika kita memiliki komponen kelas kustom Parent yang me-render komponen kelas kustom Child, kita bisa menggunakan ref untuk mendapatkan instance Child:
+
+```jsx
+class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.childRef = React.createRef();
+  }
+
+  componentDidMount() {
+    // kita bisa mengakses instance Child melalui childRef
+    console.log(this.childRef.current);
+  }
+
+  render() {
+    return <Child ref={this.childRef} />;
+  }
+}
+
+class Child extends React.Component {
+  render() {
+    return <div>Hi, I'm a child!</div>;
+  }
+}
+```
+
+Dengan cara ini, kita bisa memanggil metode atau mengakses properti dari instance Child melalui childRef.current. Misalnya, jika Child memiliki metode bernama greet(), kita bisa memanggilnya dari Parent seperti ini:
+
+```jsx
+this.childRef.current.greet();
+```
+
+Ini berguna ketika kita ingin memanggil metode imperatif atau mengakses nilai yang tidak digunakan untuk rendering pada komponen anak.
+
+Refs dan Komponen Fungsi
+Secara default, Anda tidak dapat menggunakan ref pada komponen fungsi karena mereka tidak memiliki instance. Namun, Anda dapat menggunakan ref dalam komponen fungsi dengan salah satu dari dua cara berikut:
+
+- Menggunakan React.forwardRef (lihat di bawah)
+- Menggunakan hook useRef di dalam komponen fungsi
+
+Menggunakan React.forwardRef
+React.forwardRef adalah fitur React yang memungkinkan Anda meneruskan ref ke komponen anak. Ini berguna ketika Anda membuat komponen tingkat tinggi (HOC) yang membungkus komponen lain.
+
+Misalnya, kita memiliki komponen FancyButton yang merupakan HOC yang membungkus elemen button asli. Kita ingin menggunakan ref untuk mengakses node DOM button dari komponen induk.
+
+Untuk melakukan ini, kita perlu meneruskan ref dari komponen induk ke elemen button di dalam FancyButton. Kita bisa menggunakan React.forwardRef untuk membantu kita dengan hal ini:
+
+```jsx
+// Membuat sebuah ref untuk menyimpan node DOM button
+const ref = React.createRef();
+
+// Membuat sebuah komponen FancyButton yang meneruskan ref ke elemen button
+const FancyButton = React.forwardRef((props, ref) => (
+  <button ref={ref} className="FancyButton">
+    {props.children}
+  </button>
+));
+
+// Kita sekarang bisa mendapatkan referensi langsung ke node DOM button:
+<FancyButton ref={ref}>Click me!</FancyButton>;
+```
+
+React.forwardRef menerima sebuah fungsi sebagai parameter. Fungsi ini menerima dua argumen: props dan ref. Fungsi ini harus mengembalikan sebuah elemen React.
+
+Dengan cara ini, kita bisa melewatkan ref dari komponen induk ke elemen anak melalui props. Ref akan menjadi parameter kedua dari fungsi yang dilewatkan ke React.forwardRef.
+
+Menggunakan Hook useRef
+Hook useRef adalah cara lain untuk menggunakan ref di dalam komponen fungsi. Hook useRef mengembalikan sebuah objek yang memiliki properti current yang dapat diubah dan ditetapkan ke node DOM atau elemen React.
+
+Misalnya, kita memiliki komponen TextInputWithFocusButton yang menampilkan sebuah input teks dan sebuah tombol. Kita ingin fokus input teks ketika pengguna mengeklik tombol.
+
+Untuk melakukan ini, kita bisa menggunakan hook useRef untuk membuat sebuah ref dan melewatkan ke elemen input. Kemudian kita bisa memanggil metode focus pada current dari ref ketika pengguna mengeklik tombol.
+
+```jsx
+import { useRef } from "react";
+
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` menunjuk ke elemen input yang dipasangkan
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
 
 
