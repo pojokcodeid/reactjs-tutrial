@@ -10,6 +10,7 @@
 - [Mengenal ES6](#ES6)
   - [Apa itu ES6](#APA-ITU-ES6)
   - [ES6 Class](#ES6-CLASS)
+  - [ES6 Arrow Function](#ES6-ARROW-FUNCTION)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -290,4 +291,32 @@ let novel1 = new Novel("Nineteen Eighty-Four", "George Orwell", 1949, "dystopian
 
 // Memanggil metode getDescription
 console.log(novel1.getDescription()); // Nineteen Eighty-Four was written by George Orwell in 1949. It is a dystopian novel.
+```
+### ES6 ARROW FUNCTION
+ES6 arrow function adalah sebuah ekspresi fungsi yang lebih ringkas dan mudah dibaca daripada fungsi tradisional, dengan beberapa perbedaan semantik dan keterbatasan penggunaan:
+
+- Arrow function tidak memiliki binding sendiri untuk `this`, `arguments`, atau `super`, dan tidak boleh digunakan sebagai metode.
+- Arrow function tidak bisa digunakan sebagai konstruktor. Memanggilnya dengan `new` akan melempar sebuah `TypeError`.
+- Mereka juga tidak memiliki akses ke kata kunci `new.target`.
+- Arrow function tidak bisa menggunakan `yield` dalam tubuhnya dan tidak bisa dibuat sebagai fungsi generator.
+
+Contoh ES6 arrow function:
+
+```javascript
+// Fungsi tradisional
+function tambah(a, b) {
+  return a + b;
+}
+
+// Arrow function
+let tambah = (a, b) => a + b;
+
+// Arrow function dengan parameter default
+let tambah = (a = 1, b = 2) => a + b;
+
+// Arrow function dengan parameter rest
+let tambah = (...angka) => angka.reduce((a, b) => a + b);
+
+// Arrow function dengan parameter destrukturisasi
+let tambah = ({a, b}) => a + b;
 ```
