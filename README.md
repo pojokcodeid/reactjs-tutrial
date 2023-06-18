@@ -27,6 +27,7 @@
 - [Constructor](#Constructor)
 - [React API](#React-API)
 - [React Form](#React-Form)
+- [React Event](#React-Events)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1735,4 +1736,170 @@ function MyForm() {
     </form>
   );
 }
+```
+
+## REACT EVENTS
+React Events adalah aksi yang bisa dipicu sebagai akibat dari interaksi pengguna atau sistem dengan halaman web. Misalnya, klik mouse, muat halaman web, tekan tombol, ubah ukuran jendela, dan interaksi lainnya disebut event. React memiliki sistem event sendiri yang sangat mirip dengan menangani event pada elemen DOM.
+
+Sistem event React dikenal sebagai Synthetic Event, yaitu pembungkus lintas browser dari event asli browser. Synthetic Event memiliki antarmuka yang sama dengan event asli browser, termasuk stopPropagation() dan preventDefault(), kecuali event tersebut bekerja identik di semua browser.
+
+Menangani Event di React
+Menangani event dengan elemen React sangat mirip dengan menangani event pada elemen DOM. Ada beberapa perbedaan sintaks:
+
+- Event React dinamai menggunakan camelCase (seperti onClick), bukan huruf kecil semua.
+- Menggunakan JSX, Anda melewatkan fungsi sebagai event handler, bukan string.
+
+Misalnya, HTML berikut:
+
+```html
+<button onclick="activateLasers()">Activate Lasers</button>
+```
+
+Sedikit berbeda di React:
+
+```jsx
+<button onClick={activateLasers}>Activate Lasers</button>
+```
+
+Anda tidak bisa mengembalikan false untuk mencegah perilaku default di React. Anda harus secara eksplisit memanggil preventDefault. Misalnya, dengan HTML biasa, untuk mencegah link default membuka halaman baru, Anda bisa menulis:
+
+```html
+<a href="#" onclick="console.log('The link was clicked.'); return false">Click me</a>
+```
+
+Di React, ini bisa sedikit berbeda:
+
+```jsx
+function handleClick(e) {
+  e.preventDefault();
+  console.log("The link was clicked.");
+}
+
+return <a href="#" onClick={handleClick}>Click me</a>;
+```
+
+Di sini, e adalah sebuah objek Synthetic Event. React menentukan objek ini sesuai dengan spesifikasi W3C, jadi Anda tidak perlu khawatir tentang kompatibilitas lintas browser.
+
+Ketika Anda mendefinisikan sebuah komponen menggunakan kelas ES6, metode umum seperti handleClick dan handleSubmit harus diikat secara eksplisit ke this:
+
+```jsx
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isToggleOn: true };
+
+    // Ini penting untuk membuat `this` bekerja di callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState((prevState) => ({
+      isToggleOn: !prevState.isToggleOn,
+    }));
+  }
+
+  render() {
+    return <button onClick={this.handleClick}>{this.state.isToggleOn ? "ON" : "OFF"}</button>;
+  }
+}
+```
+
+Alternatifnya, Anda bisa menggunakan sintaks bidang kelas untuk menghindari mengikat secara eksplisit:
+
+```jsx
+class Toggle extends React.Component {
+  state = { isToggleOn: true };
+
+  // Ini adalah sintaks bidang kelas *eksperimental*
+  handleClick = () => {
+    this.setState((prevState) => ({
+      isToggleOn: !prevState.isToggleOn,
+    }));
+  };
+
+  render() {
+    return <button onClick={this.handleClick}>{this.state.isToggleOn ? "ON" : "OFF"}</button>;
+  }
+}
+```
+
+Atau Anda bisa menggunakan fungsi panah di dalam callback:
+
+```jsx
+class Toggle extends React.Component {
+  state = { isToggleOn: true };
+
+  render() {
+    return (
+      <button
+        onClick={() => {
+          this.setState((prevState) => ({
+            isToggleOn: !prevState.isToggleOn,
+          }));
+        }}
+      >
+        {this.state.isToggleOn ? "ON" : "OFF"}
+      </button>
+    );
+  }
+}
+```
+
+Namun, masalah dengan sintaks ini adalah callback berbeda dibuat setiap kali Toggle dirender. Dalam sebagian besar kasus, ini baik-baik saja. Namun, jika callback ini dilewatkan sebagai prop ke komponen bawah, komponen tersebut mungkin melakukan render ulang tambahan.
+
+Event yang Didukung
+React menormalkan event sehingga mereka memiliki properti yang konsisten di seluruh browser. Event handler di bawah ini dipicu oleh sebuah event dalam fase bubbling. Untuk mendaftarkan sebuah event handler untuk fase tangkapan (capture), tambahkan Capture ke nama event; misalnya, alih-alih menggunakan onClick, Anda akan menggunakan onClickCapture untuk menangani event klik dalam fase tangkapan.
+
+Beberapa event yang didukung oleh React adalah:
+
+- Clipboard Events: Event yang terkait dengan clipboard, seperti onCopy, onCut, dan onPaste.
+- Composition Events: Event yang terkait dengan komposisi karakter IME (Input Method Editor), seperti onCompositionEnd, onCompositionStart, dan onCompositionUpdate.
+- Keyboard Events: Event yang terkait dengan input keyboard, seperti onKeyDown, onKeyPress, dan onKeyUp.
+- Focus Events: Event yang terkait dengan fokus elemen, seperti onFocus dan onBlur.
+- Form Events: Event yang terkait dengan elemen form, seperti onChange, onSubmit, dan onReset.
+- Mouse Events: Event yang terkait dengan input mouse, seperti onClick, onDoubleClick, onMouseDown, onMouseMove, dan onMouseUp.
+- Pointer Events: Event yang terkait dengan input pointer (mouse, pena, sentuh), seperti onPointerDown, onPointerMove, dan onPointerUp.
+- Selection Events: Event yang terkait dengan pemilihan teks atau konten, seperti onSelect.
+- Touch Events: Event yang terkait dengan input sentuh, seperti onTouchStart, onTouchMove, dan onTouchEnd.
+- UI Events: Event yang terkait dengan antarmuka pengguna (user interface), seperti onLoad dan onError.
+- Wheel Events: Event yang terkait dengan roda mouse atau trackpad, seperti onWheel.
+
+Contoh penggunaan beberapa event di React:
+
+```jsx
+import React from "react";
+
+// Membuat fungsi komponen App
+function App() {
+  // Membuat fungsi untuk menangani klik tombol
+  const handleClick = () => {
+    alert("You clicked the button!");
+  };
+
+  // Membuat fungsi untuk menangani perubahan input
+  const handleChange = (e) => {
+    console.log("You typed:", e.target.value);
+  };
+
+  // Membuat fungsi untuk menangani submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("You submitted the form!");
+  };
+
+  // Mengembalikan elemen React menggunakan JSX dan event handler
+  return (
+    <div className="container">
+      <h1>React Events</h1>
+      <button onClick={handleClick}>Click Me</button>
+      <input type="text" onChange={handleChange} />
+      <form onSubmit={handleSubmit}>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  );
+}
+
+// Mengekspor fungsi komponen App sebagai default
+export default App;
 ```
