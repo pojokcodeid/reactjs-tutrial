@@ -5,6 +5,7 @@
 - [Sejarah React](#SEJARAH-REACT)
 - [Kenapa Memilih React](#KENAPA-MEMILIH-REACT)
 - [Lifesicle React](#LIFECYCLE-RAEACT)
+- [Memulai dengan CDN](#MEMULAI-REACT-DENGAN-CDN)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -43,4 +44,45 @@ State dan lifecycle adalah dua konsep penting dalam React JS yang berhubungan de
 - **Lifecycle** adalah siklus hidup dari komponen, yang terdiri dari tiga fase: mounting, updating, dan unmounting. Setiap fase memiliki metode khusus yang bisa digunakan untuk mengatur logika komponen. Misalnya, metode componentDidMount() akan dipanggil ketika komponen berhasil dimount ke DOM, dan metode componentWillUnmount() akan dipanggil ketika komponen akan dihapus dari DOM.
 
 State dan lifecycle saling berhubungan karena perubahan state bisa memicu pemanggilan metode lifecycle. Misalnya, ketika kita memanggil setState(), React akan membandingkan state sebelum dan sesudah perubahan, dan memanggil metode render() untuk merender ulang UI. Kemudian, React juga akan memanggil metode componentDidUpdate() untuk memberitahu kita bahwa komponen sudah diperbarui.
+
+## MEMULAI REACT DENGAN CDN
+Untuk memulai React dengan CDN, ada beberapa jal yang harus dilakukan:
+
+- Pertama, Anda perlu menambahkan skrip CDN untuk React, React DOM, dan Babel di bagian `<head>` file HTML Anda. Ini akan memuat pustaka-pustaka yang diperlukan untuk menjalankan React di browser Anda.
+- Kedua, Anda perlu membuat sebuah komponen React yang akan menampilkan UI Anda. Anda dapat menggunakan sintaks JSX untuk menulis elemen HTML di dalam kode JavaScript. Anda juga dapat menggunakan kelas atau fungsi untuk membuat komponen React.
+- Ketiga, Anda perlu me-render komponen React ke dalam elemen HTML tertentu di halaman Anda. Anda dapat menggunakan `ReactDOM.render()` untuk melakukan ini. Anda perlu memberikan dua argumen: komponen React yang ingin Anda tampilkan, dan elemen HTML yang ingin Anda gunakan sebagai kontainer.
+- Keempat, Anda dapat menambahkan gaya dan fungsionalitas tambahan ke aplikasi React Anda dengan menggunakan pustaka-pustaka lain seperti Bootstrap, Axios, Redux, dll. Anda dapat menautkan skrip CDN untuk pustaka-pustaka ini di bagian `<head>` file HTML Anda juga.
+
+Berikut adalah contoh kode sederhana untuk membuat aplikasi React dengan CDN:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Belajar Reactjs</title>
+  <!-- Skrip CDN untuk React, React DOM, dan Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <!-- Elemen HTML yang akan digunakan sebagai kontainer untuk komponen React -->
+  <div id="app"></div>
+  <!-- Skrip JSX yang akan dikompilasi oleh Babel menjadi JavaScript biasa -->
+  <script type="text/babel">
+    // Membuat komponen React dengan kelas
+    class Hello extends React.Component {
+      // Metode render yang akan mengembalikan elemen JSX
+      render() {
+        return <h1>Halo Dunia Reactjs!</h1>
+      }
+    }
+
+    // Me-render komponen Hello ke dalam elemen dengan id "app"
+    ReactDOM.render(<Hello/>, document.getElementById("app"));
+  </script>
+</body>
+</html>
+```
 
