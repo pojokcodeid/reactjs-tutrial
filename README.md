@@ -30,6 +30,7 @@
 - [React Event](#REACT-EVENTS)
 - [React Keys](#React-Keys)
 - [React Refs](#React-Refs)
+- [React Fragments](#React-Fragments)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2255,5 +2256,148 @@ function TextInputWithFocusButton() {
   );
 }
 ```
+
+## REACT FRAGMENTS
+
+React Fragments adalah fitur React yang memungkinkan Anda mengelompokkan daftar anak tanpa menambahkan node tambahan ke DOM. Fragments membiarkan Anda mengembalikan beberapa elemen dari sebuah komponen.
+
+```jsx
+render() {
+  return (
+    <React.Fragment>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment>
+  );
+}
+```
+
+Ada juga sintaks pendek baru untuk mendeklarasikan mereka. Seperti tag kosong:
+
+```jsx
+render() {
+  return (
+    <>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </>
+  );
+}
+```
+
+Anda bisa menggunakan <></> dengan cara yang sama seperti Anda menggunakan elemen lain kecuali bahwa itu tidak mendukung key atau atribut.
+
+Motivasi
+Pola umum adalah untuk sebuah komponen mengembalikan daftar anak. Ambil contoh potongan React berikut:
+
+```jsx
+class Table extends React.Component {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+```
+
+<Columns /> perlu mengembalikan beberapa elemen <td> agar HTML yang dihasilkan valid. Jika div induk digunakan di dalam render() dari <Columns />, maka HTML yang dihasilkan akan tidak valid.
+
+```jsx
+class Columns extends React.Component {
+  render() {
+    return (
+      <div>
+        <td>Hello</td>
+        <td>World</td>
+      </div>
+    );
+  }
+}
+```
+
+Hasil dalam output <Table /> dari:
+
+```html
+<table>
+  <tr>
+    <div>
+      <td>Hello</td>
+      <td>World</td>
+    </div>
+  </tr>
+</table>
+```
+
+Fragments menyelesaikan masalah ini.
+
+Penggunaan
+```jsx
+class Columns extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <td>Hello</td>
+        <td>World</td>
+      </React.Fragment>
+    );
+  }
+}
+```
+
+Hasil dalam output <Table /> yang benar dari:
+
+```html
+<table>
+  <tr>
+    <td>Hello</td>
+    <td>World</td>
+  </tr>
+</table>
+```
+
+Sintaks Pendek
+Ada sintaks baru, lebih pendek yang bisa Anda gunakan untuk mendeklarasikan fragmen. Seperti tag kosong:
+
+```jsx
+class Columns extends React.Component {
+  render() {
+    return (
+      <>
+        <td>Hello</td>
+        <td>World</td>
+      </>
+    );
+  }
+}
+```
+
+Anda bisa menggunakan <></> dengan cara yang sama seperti Anda menggunakan elemen lain kecuali bahwa itu tidak mendukung key atau atribut.
+
+Fragments dengan Key
+Fragments yang dideklarasikan dengan sintaks eksplisit <React.Fragment> bisa memiliki key. Kasus penggunaan untuk ini adalah memetakan koleksi ke array fragmen - misalnya, untuk membuat daftar deskripsi:
+
+```jsx
+function Glossary(props) {
+  return (
+    <dl>
+      {props.items.map((item) => (
+        // Tanpa `key`, React akan memberi peringatan key
+        <React.Fragment key={item.id}>
+          <dt>{item.term}</dt>
+          <dd>{item.description}</dd>
+        </React.Fragment>
+      ))}
+    </dl>
+  );
+}
+```
+
+key adalah satu-satunya atribut yang bisa dilewatkan ke Fragment. Di masa depan, kita mungkin menambahkan dukungan untuk atribut tambahan, seperti event handler.
 
 
