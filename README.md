@@ -23,6 +23,7 @@
 - [React Components](#REACT-COMPONENTS)
 - [React State](#REACT-STATE)
 - [React Props](#REACT-PROPS)
+- [State Vs. Props](#State-Vs-Props)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1302,4 +1303,17 @@ export default App;
 Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
 
 Hasilnya adalah fungsi komponen `App` akan menampilkan tiga fungsi komponen `Greeting` dengan props name yang berbeda-beda di dalam elemen `<div id="root"></div>` di halaman web.
+
+## STATE VS PROPS
+
+React state dan props adalah dua mekanisme penting untuk menyimpan dan mengirimkan data di dalam komponen React. Namun, ada beberapa perbedaan antara keduanya, yaitu:
+
+- React state adalah objek yang berisi data atau informasi yang bisa berubah seiring waktu di dalam komponen React. React state memungkinkan kita untuk membuat antarmuka pengguna yang interaktif dan dinamis, yang bisa menyesuaikan diri dengan perubahan data. React state hanya bisa digunakan di dalam kelas komponen atau fungsi komponen, dan bersifat privat, artinya hanya bisa diakses dan diubah oleh komponen yang memiliki state tersebut. React state bisa diubah dengan menggunakan metode `this.setState()` di dalam kelas komponen atau hook `useState()` di dalam fungsi komponen.
+- React props adalah objek yang berisi data atau informasi yang dikirimkan dari komponen induk ke komponen anak. React props memungkinkan kita untuk mengirimkan data antara komponen dan menyesuaikan tampilan atau perilaku komponen. React props bisa digunakan di dalam kelas komponen atau fungsi komponen, dan bersifat read-only, artinya tidak bisa diubah oleh komponen penerima. React props bisa dikirimkan dengan menggunakan sintaks seperti atribut HTML, dan bisa diakses dengan menggunakan `this.props` di dalam kelas komponen atau parameter `props` di dalam fungsi komponen.
+
+Secara singkat, perbedaan antara React state dan props adalah:
+
+- State adalah data internal yang bisa berubah, sedangkan props adalah data eksternal yang tidak bisa berubah.
+- State digunakan untuk mengontrol perilaku komponen, sedangkan props digunakan untuk mengonfigurasi komponen.
+- State hanya bisa diubah oleh komponen itu sendiri, sedangkan props hanya bisa dikirimkan oleh komponen induk.
 
