@@ -32,6 +32,7 @@
 - [React Refs](#React-Refs)
 - [React Fragments](#React-Fragments)
 - [React Router](#React-Router)
+- [React CSS](#React-CSS)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2536,5 +2537,141 @@ function App() {
 ```
 
 Dengan kode di atas, kita bisa membuat aplikasi web sederhana dengan beberapa halaman yang bisa diakses melalui URL atau tautan. Kita juga bisa menangani kasus seperti rute tidak ditemukan, rute dinamis, dan navigasi programatik dengan React Router.
+
+## REACT CSS
+
+React CSS adalah cara untuk menerapkan gaya pada komponen React dengan menggunakan CSS. Ada banyak cara untuk melakukan ini, tetapi tutorial ini akan melihat lebih dekat pada dua metode yang paling umum: inline styling dan CSS stylesheet.
+
+Inline Styling
+Untuk memberi gaya pada elemen dengan atribut style inline, nilainya harus berupa objek JavaScript:
+
+```jsx
+class MyHeader extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1 style={{ color: "red" }}>Hello Style!</h1>
+        <p>Add a little style!</p>
+      </div>
+    );
+  }
+}
+```
+
+Catatan: Dalam JSX, ekspresi JavaScript ditulis di dalam kurung kurawal, dan karena objek JavaScript juga menggunakan kurung kurawal, gaya dalam contoh di atas ditulis di dalam dua set kurung kurawal {{}}.
+
+Properti CSS dengan Camel Case
+Karena CSS inline ditulis dalam objek JavaScript, properti dengan dua nama, seperti background-color, harus ditulis dengan sintaks camel case:
+
+```jsx
+class MyHeader extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1 style={{ backgroundColor: "lightblue" }}>Hello Style!</h1>
+        <p>Add a little style!</p>
+      </div>
+    );
+  }
+}
+```
+
+Objek JavaScript
+Anda juga bisa membuat objek dengan informasi gaya, dan merujuknya dalam atribut style:
+
+```jsx
+class MyHeader extends React.Component {
+  render() {
+    const mystyle = {
+      color: "white",
+      backgroundColor: "DodgerBlue",
+      padding: "10px",
+      fontFamily: "Arial",
+    };
+    return (
+      <div>
+        <h1 style={mystyle}>Hello Style!</h1>
+        <p>Add a little style!</p>
+      </div>
+    );
+  }
+}
+```
+
+CSS Stylesheet
+Anda bisa menulis CSS Anda dalam file terpisah, cukup simpan file dengan ekstensi file .css, dan impor di aplikasi Anda.
+
+App.css:
+Buat file baru bernama "App.css" dan masukkan beberapa kode CSS di dalamnya:
+
+```css
+body {
+  background-color: #282c34;
+  color: white;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+}
+```
+
+Catatan: Anda bisa menyebut file apa pun yang Anda suka, asalkan ingat ekstensi file yang benar.
+
+Impor stylesheet di aplikasi Anda:
+
+index.js:
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./App.css";
+
+class MyHeader extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello Style!</h1>
+        <p>Add a little style!.</p>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<MyHeader />, document.getElementById("root"));
+```
+
+CSS Modules
+Cara lain untuk menambahkan gaya ke aplikasi Anda adalah menggunakan CSS Modules. CSS Modules nyaman untuk komponen yang ditempatkan di file terpisah. CSS di dalam modul hanya tersedia untuk komponen yang mengimpornya, dan Anda tidak perlu khawatir tentang konflik nama.
+
+Buat modul CSS dengan ekstensi .module.css, misalnya: mystyle.module.css.
+
+mystyle.module.css:
+Buat file baru bernama "mystyle.module.css" dan masukkan beberapa kode CSS di dalamnya:
+
+```css
+.bigblue {
+  color: DodgerBlue;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+}
+```
+
+Impor stylesheet di komponen Anda:
+
+App.js:
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import styles from "./mystyle.module.css";
+
+class Car extends React.Component {
+  render() {
+    return <h1 className={styles.bigblue}>Hello Car!</h1>;
+  }
+}
+
+export default Car;
+```
 
 
