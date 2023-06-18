@@ -6,6 +6,7 @@
 - [Kenapa Memilih React](#KENAPA-MEMILIH-REACT)
 - [Lifesicle React](#LIFECYCLE-RAEACT)
 - [Memulai dengan CDN](#MEMULAI-REACT-DENGAN-CDN)
+- [Memulai React dengan NodeJS](#MEMULAI-REACT-DENGAN-NODEJS)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -86,3 +87,77 @@ Berikut adalah contoh kode sederhana untuk membuat aplikasi React dengan CDN:
 </html>
 ```
 
+## MEMULAI REACT DENGAN NODEJS
+Untuk memulainya ada beberapa langkah yang perlu Anda lakukan:
+
+- Pertama, Anda perlu menginstal Node.js dan npm di komputer Anda. Node.js adalah lingkungan runtime JavaScript yang memungkinkan Anda menjalankan kode JavaScript di sisi server. Npm adalah manajer paket untuk Node.js yang memudahkan Anda menginstal dan mengelola pustaka-pustaka yang dibutuhkan oleh aplikasi React Anda.
+- Kedua, Anda perlu menginstal create-react-app, sebuah alat yang memudahkan Anda membuat dan menjalankan proyek React. Anda dapat menginstal create-react-app secara global dengan menggunakan perintah `npm install -g create-react-app` di terminal atau command prompt Anda.
+- Ketiga, Anda perlu membuat proyek React baru dengan menggunakan create-react-app. Anda dapat melakukannya dengan menggunakan perintah `npx create-react-app nama-proyek` di terminal atau command prompt Anda, di mana `nama-proyek` adalah nama yang Anda inginkan untuk proyek Anda. Perintah ini akan membuat folder baru dengan nama proyek Anda dan mengisi folder tersebut dengan file-file yang diperlukan untuk aplikasi React Anda.
+- Keempat, Anda perlu menjalankan aplikasi React Anda dengan menggunakan perintah `npm start` di terminal atau command prompt Anda. Perintah ini akan menjalankan server pengembangan lokal yang akan membuka browser Anda dan menampilkan aplikasi React Anda. Anda dapat mengedit file-file di folder proyek Anda dan melihat perubahan secara langsung di browser.
+
+Berikut adalah contoh output dari perintah-perintah di atas¹:
+
+```bash
+$ npm install -g create-react-app
++ create-react-app@4.0.3
+added 67 packages from 23 contributors in 5.782s
+
+$ npx create-react-app belajar-react
+npx: installed 67 in 6.223s
+
+Creating a new React app in D:\belajar-react.
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template...
+
+added 1906 packages from 704 contributors and audited 1910 packages in 138.057s
+
+170 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+
+Initialized a git repository.
+
+Success! Created belajar-react at D:\belajar-react
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files for production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd belajar-react
+  npm start
+
+Happy hacking!
+
+$ cd belajar-react
+$ npm start
+
+> belajar-react@0.1.0 start D:\belajar-react
+> react-scripts start
+
+Starting the development server...
+
+Compiled successfully!
+
+You can now view belajar-react in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.1.100:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+```
