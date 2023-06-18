@@ -22,6 +22,7 @@
 - [React JSX](#REACT-JSX)
 - [React Components](#REACT-COMPONENTS)
 - [React State](#REACT-STATE)
+- [React Props](#REACT-PROPS)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1197,4 +1198,108 @@ Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelu
 
 Hasilnya adalah fungsi komponen `App` akan menampilkan sebuah counter yang bisa ditambahkan dengan menekan tombol "Click me". Setiap kali tombol ditekan, state `count` akan bertambah satu dan antarmuka pengguna akan diperbarui sesuai dengan nilai state terbaru.
 
+## REACT PROPS
+
+React props adalah objek yang berisi data atau informasi yang dikirimkan dari komponen induk ke komponen anak. React props memungkinkan kita untuk mengirimkan data antara komponen dan menyesuaikan tampilan atau perilaku komponen.
+
+React props bisa digunakan di dalam kelas komponen atau fungsi komponen. React props bersifat read-only, artinya tidak bisa diubah oleh komponen penerima.
+
+Untuk menggunakan props di dalam kelas komponen, kita perlu melakukan beberapa langkah, yaitu:
+
+- Mengirimkan props dari komponen induk ke komponen anak dengan menggunakan sintaks seperti atribut HTML. Props bisa berupa string, angka, boolean, array, objek, atau fungsi.
+- Mengakses props di dalam kelas komponen dengan menggunakan `this.props` di dalam metode `render()` atau metode lainnya. Props disimpan dalam objek `this.props`, sehingga kita bisa mengakses nilai props dengan menggunakan dot notation atau bracket notation.
+
+Contoh React props di dalam kelas komponen:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat kelas komponen Greeting
+class Greeting extends React.Component {
+  // Membuat metode render
+  render() {
+    // Mengakses props dengan this.props
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
+
+// Membuat kelas komponen App
+class App extends React.Component {
+  // Membuat metode render
+  render() {
+    // Mengirimkan props dari komponen App ke komponen Greeting
+    return (
+      <div>
+        <Greeting name="Budi" />
+        <Greeting name="Ani" />
+        <Greeting name="Rudi" />
+      </div>
+    );
+  }
+}
+
+// Mengekspor kelas komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode untuk merender kelas komponen `App` ke dalam elemen HTML:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Mengimpor kelas komponen App dari file App.js
+import App from "./App";
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender kelas komponen App ke dalam elemen HTML
+ReactDOM.render(<App />, container);
+```
+
+Hasilnya adalah kelas komponen `App` akan menampilkan tiga kelas komponen `Greeting` dengan props name yang berbeda-beda di dalam elemen `<div id="root"></div>` di halaman web.
+
+Untuk menggunakan props di dalam fungsi komponen, kita perlu melakukan beberapa langkah, yaitu:
+
+- Mengirimkan props dari komponen induk ke komponen anak dengan menggunakan sintaks seperti atribut HTML. Props bisa berupa string, angka, boolean, array, objek, atau fungsi.
+- Mengakses props di dalam fungsi komponen dengan menggunakan parameter `props` yang menerima objek `props`. Kita bisa mengakses nilai props dengan menggunakan dot notation atau bracket notation. Kita juga bisa menggunakan destructuring assignment untuk menyimpan nilai props ke dalam variabel.
+
+Contoh React props di dalam fungsi komponen:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat fungsi komponen Greeting
+function Greeting(props) {
+  // Mengakses props dengan parameter props
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+// Membuat fungsi komponen App
+function App() {
+  // Mengirimkan props dari fungsi komponen App ke fungsi komponen Greeting
+  return (
+    <div>
+      <Greeting name="Budi" />
+      <Greeting name="Ani" />
+      <Greeting name="Rudi" />
+    </div>
+  );
+}
+
+// Mengekspor fungsi komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
+
+Hasilnya adalah fungsi komponen `App` akan menampilkan tiga fungsi komponen `Greeting` dengan props name yang berbeda-beda di dalam elemen `<div id="root"></div>` di halaman web.
 
