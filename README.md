@@ -12,6 +12,7 @@
   - [ES6 Class](#ES6-CLASS)
   - [ES6 Arrow Function](#ES6-ARROW-FUNCTION)
   - [ES6 Variable](#ES6-VARIABLE)
+  - [ES6 Array Method](#ES6-ARRAY-METHOD)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -398,3 +399,83 @@ ES6 mendefinisikan scope baru untuk variable - Block scope.
 Let dan Block Scope
 
 Block scope membatasi akses sebuah variable ke block tempat ia dideklarasikan. Kata kunci `let` menetapkan scope block ke sebuah variable.
+
+### ES6 ARRAY METHOD
+ES6 array method adalah metode-metode baru atau yang dimodifikasi untuk bekerja dengan array di JavaScript. Mereka termasuk metode untuk membuat, menyalin, mencari, mengisi, mengulangi, dan mengurutkan array. Setiap metode memiliki sintaks, fungsionalitas, dan fitur tersendiri¹.
+
+Beberapa metode array yang diperkenalkan di ES6 adalah sebagai berikut:
+
+- `Array.from()` - Mengubah nilai yang mirip array atau iterable menjadi array.
+- `Array.of()` - Membuat sebuah instance dari sejumlah argumen yang variabel, bukan dari jumlah argumen atau tipe argumen.
+- `Array.prototype.copyWithin()` - Menyalin bagian dari sebuah array ke lokasi yang berbeda dalam array yang sama.
+- `Array.prototype.find()` - Menemukan sebuah nilai dari sebuah array, berdasarkan kriteria tertentu yang dilewatkan ke metode ini.
+- `Array.prototype.findIndex()` - Mengembalikan indeks dari elemen pertama dari array yang memenuhi kondisi tertentu.
+- `Array.prototype.entries()` - Mengembalikan sebuah objek iterator array, yang bisa digunakan untuk mengulangi kunci dan nilai dari array.
+- `Array.prototype.keys()` - Mengembalikan sebuah objek iterator array bersama dengan kunci dari array.
+- `Array.prototype.values()` - Mengembalikan nilai dari setiap kunci.
+- `Array.prototype.fill()` - Mengisi elemen array yang ditentukan dengan nilai statis.
+
+Contoh ES6 array method:
+
+```javascript
+// Membuat array dari string
+let nama = Array.from("Budi");
+console.log(nama); // [ 'B', 'u', 'd', 'i' ]
+
+// Membuat array dari satu nilai numerik
+let angka = Array.of(10);
+console.log(angka); // [ 10 ]
+
+// Menyalin bagian dari array
+let arr = [1, 2, 3, 4, 5];
+arr.copyWithin(0, 3); // Menyalin elemen dari indeks 3 ke indeks 0
+console.log(arr); // [ 4, 5, 3, 4, 5 ]
+
+// Menemukan elemen dalam array
+let arr = [1, 4, 5, 6, 7];
+let hasil = arr.find(x => x > 5); // Mencari elemen yang lebih besar dari 5
+console.log(hasil); // 6
+
+// Menemukan indeks elemen dalam array
+let arr = [1, 4, 5, 6, 7];
+let hasil = arr.findIndex(x => x > 5); // Mencari indeks elemen yang lebih besar dari 5
+console.log(hasil); // 3
+
+// Mengulangi kunci dan nilai dari array
+let arr = ["a", "b", "c"];
+let iterator = arr.entries(); // Mendapatkan iterator untuk kunci dan nilai
+for (let [key, value] of iterator) {
+    console.log(key + ": " + value);
+}
+// Output:
+// 0: a
+// 1: b
+// 2: c
+
+// Mengulangi kunci dari array
+let arr = ["a", "b", "c"];
+let iterator = arr.keys(); // Mendapatkan iterator untuk kunci
+for (let key of iterator) {
+    console.log(key);
+}
+// Output:
+// 0
+// 1
+// 2
+
+// Mengulangi nilai dari array
+let arr = ["a", "b", "c"];
+let iterator = arr.values(); // Mendapatkan iterator untuk nilai
+for (let value of iterator) {
+    console.log(value);
+}
+// Output:
+// a
+// b
+// c
+
+// Mengisi elemen array dengan nilai statis
+let arr = [1, 2, 3, 4, 5];
+arr.fill(0); // Mengisi semua elemen dengan angka nol
+console.log(arr); // [0, 0, 0, 0 ,0]
+```
