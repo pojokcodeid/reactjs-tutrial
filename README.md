@@ -19,6 +19,7 @@
   - [ES6 Modules](#ES6-MODULES)
   - [ES6 Ternary Operator](#ES6-TERNARY-OPERATOR)
 - [React Render HTML](#REACT-RENDER-HTML)
+- [React JSX](#REACT-JSX)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -915,3 +916,70 @@ ReactDOM.render(<App />, container);
 ```
 
 Hasilnya adalah komponen `App` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
+
+## REACT JSX
+React JSX adalah sebuah sintaks yang memungkinkan kita untuk menulis elemen HTML di dalam kode JavaScript¹. JSX membuatnya lebih mudah untuk membuat dan menambahkan HTML di React.
+
+JSX mengubah tag HTML menjadi elemen React, yang kemudian dirender oleh React ke dalam halaman web. JSX juga mendukung ekspresi JavaScript, yang bisa kita masukkan di antara kurung kurawal.
+
+Untuk menggunakan JSX, kita perlu mengimpor React dari pustaka `react`. JSX juga membutuhkan transpiler seperti Babel untuk mengubah sintaks JSX menjadi JavaScript biasa.
+
+Contoh React JSX:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat elemen React menggunakan JSX
+const element = (
+  <h1>Hello, world!</h1>
+);
+
+// Mengekspor elemen React
+export default element;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Mengimpor elemen React dari file App.js
+import element from "./App";
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender elemen React ke dalam elemen HTML
+ReactDOM.render(element, container);
+```
+
+Hasilnya adalah elemen `<h1>Hello, world!</h1>` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
+
+Contoh React JSX dengan ekspresi JavaScript:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat variabel nama
+const name = "Budi";
+
+// Membuat elemen React menggunakan JSX dan ekspresi JavaScript
+const element = (
+  <h1>Hello, {name}!</h1>
+);
+
+// Mengekspor elemen React
+export default element;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
+
+Hasilnya adalah elemen `<h1>Hello, Budi!</h1>` akan ditampilkan di dalam elemen `<div id="root"></div>` di halaman web.
