@@ -14,6 +14,7 @@
   - [ES6 Variable](#ES6-VARIABLE)
   - [ES6 Array Method](#ES6-ARRAY-METHOD)
   - [ES6 Destructuring](#ES6-DESTRUCTURING)
+  - [ES6 Spread Operator](#ES6-SPREAD-OPERATOR)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -555,4 +556,62 @@ let sisaBuah = buah.slice(2); // Mengambil sisa elemen
 // Dengan destructuring
 let buah = ["apel", "jeruk", "pisang", "mangga"];
 let [buah1, buah2, ...sisaBuah] = buah; // Mengambil sisa elemen
+```
+### ES6 SPREAD OPERATOR
+Spread operator adalah operator yang terdiri dari tiga titik (...). Operator ini memungkinkan kita untuk mengekspansi sebuah objek iterable, seperti array atau string, di tempat di mana nol atau lebih argumen (untuk pemanggilan fungsi) atau elemen (untuk literal array) diharapkan.
+
+Dengan spread operator, kita bisa menyalin, menggabungkan, atau memasukkan elemen dari sebuah objek iterable ke dalam objek lain dengan mudah dan ringkas.
+
+Contoh spread operator untuk pemanggilan fungsi:
+
+```javascript
+// Tanpa spread operator
+function tambah(a, b, c) {
+  return a + b + c;
+}
+
+let angka = [1, 2, 3];
+let hasil = tambah.apply(null, angka); // Menggunakan apply untuk memasukkan array sebagai argumen
+console.log(hasil); // 6
+
+// Dengan spread operator
+function tambah(a, b, c) {
+  return a + b + c;
+}
+
+let angka = [1, 2, 3];
+let hasil = tambah(...angka); // Menggunakan spread operator untuk memasukkan array sebagai argumen
+console.log(hasil); // 6
+```
+
+Contoh spread operator untuk literal array:
+
+```javascript
+// Tanpa spread operator
+let buah = ["apel", "jeruk", "pisang"];
+let sayur = ["wortel", "bayam", "kangkung"];
+let makanan = buah.concat(sayur); // Menggunakan concat untuk menggabungkan array
+console.log(makanan); // [ 'apel', 'jeruk', 'pisang', 'wortel', 'bayam', 'kangkung' ]
+
+// Dengan spread operator
+let buah = ["apel", "jeruk", "pisang"];
+let sayur = ["wortel", "bayam", "kangkung"];
+let makanan = [...buah, ...sayur]; // Menggunakan spread operator untuk menggabungkan array
+console.log(makanan); // [ 'apel', 'jeruk', 'pisang', 'wortel', 'bayam', 'kangkung' ]
+```
+
+Contoh spread operator untuk literal objek:
+
+```javascript
+// Tanpa spread operator
+let mobil = { merk: "Toyota", warna: "hitam" };
+let updateMobil = { tahun: 2020, warna: "merah" };
+let mobilBaru = Object.assign({}, mobil, updateMobil); // Menggunakan Object.assign untuk menggabungkan objek
+console.log(mobilBaru); // { merk: 'Toyota', warna: 'merah', tahun: 2020 }
+
+// Dengan spread operator
+let mobil = { merk: "Toyota", warna: "hitam" };
+let updateMobil = { tahun: 2020, warna: "merah" };
+let mobilBaru = { ...mobil, ...updateMobil }; // Menggunakan spread operator untuk menggabungkan objek
+console.log(mobilBaru); // { merk: 'Toyota', warna: 'merah', tahun: 2020 }
 ```
