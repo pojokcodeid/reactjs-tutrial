@@ -21,6 +21,7 @@
 - [React Render HTML](#REACT-RENDER-HTML)
 - [React JSX](#REACT-JSX)
 - [React Components](#REACT-COMPONENTS)
+- [React State](#REACT-STATE)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1073,3 +1074,127 @@ export default App;
 Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
 
 Hasilnya adalah fungsi komponen `App` akan menampilkan tiga fungsi komponen `Greeting` dengan props name yang berbeda-beda di dalam elemen `<div id="root"></div>` di halaman web.
+
+## REACT STATE
+React state adalah objek yang berisi data atau informasi yang bisa berubah seiring waktu di dalam komponen React. React state memungkinkan kita untuk membuat antarmuka pengguna yang interaktif dan dinamis, yang bisa menyesuaikan diri dengan perubahan data.
+
+React state hanya bisa digunakan di dalam kelas komponen atau fungsi komponen. React state bersifat privat, artinya hanya bisa diakses dan diubah oleh komponen yang memiliki state tersebut.
+
+Untuk menggunakan state di dalam kelas komponen, kita perlu melakukan beberapa langkah, yaitu:
+
+- Mendefinisikan state awal di dalam konstruktor kelas komponen dengan menggunakan `this.state`.
+- Mengubah state dengan menggunakan metode `this.setState()`, yang menerima objek baru sebagai argumen.
+- Mengakses state dengan menggunakan `this.state` di dalam metode `render()` atau metode lainnya.
+
+Contoh React state di dalam kelas komponen:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat kelas komponen App
+class App extends React.Component {
+  // Mendefinisikan konstruktor kelas komponen
+  constructor(props) {
+    // Memanggil konstruktor kelas induk
+    super(props);
+    // Mendefinisikan state awal
+    this.state = {
+      count: 0,
+    };
+  }
+
+  // Membuat metode untuk menambahkan count
+  incrementCount = () => {
+    // Mengubah state dengan metode setState()
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
+  // Membuat metode render
+  render() {
+    // Mengakses state dengan this.state
+    return (
+      <div>
+        <h1>Counter</h1>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={this.incrementCount}>Click me</button>
+      </div>
+    );
+  }
+}
+
+// Mengekspor kelas komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode untuk merender kelas komponen `App` ke dalam elemen HTML:
+
+```javascript
+// Mengimpor React dan ReactDOM
+import React from "react";
+import ReactDOM from "react-dom";
+
+// Mengimpor kelas komponen App dari file App.js
+import App from "./App";
+
+// Menemukan elemen HTML dengan id "root"
+const container = document.getElementById("root");
+
+// Merender kelas komponen App ke dalam elemen HTML
+ReactDOM.render(<App />, container);
+```
+
+Hasilnya adalah kelas komponen `App` akan menampilkan sebuah counter yang bisa ditambahkan dengan menekan tombol "Click me". Setiap kali tombol ditekan, state `count` akan bertambah satu dan antarmuka pengguna akan diperbarui sesuai dengan nilai state terbaru.
+
+Untuk menggunakan state di dalam fungsi komponen, kita perlu menggunakan hook `useState`, yang disediakan oleh pustaka `react`. Hook `useState` memungkinkan kita untuk menambahkan state lokal ke dalam fungsi komponen².
+
+Untuk menggunakan hook `useState`, kita perlu melakukan beberapa langkah, yaitu:
+
+- Mengimpor hook `useState` dari pustaka `react`.
+- Memanggil hook `useState` di dalam fungsi komponen dengan memberikan nilai awal sebagai argumen. Hook `useState` akan mengembalikan sebuah array yang berisi dua elemen, yaitu nilai state saat ini dan sebuah fungsi untuk mengubah state tersebut.
+- Menyimpan array yang dikembalikan oleh hook `useState` ke dalam variabel dengan menggunakan destructuring assignment. Variabel pertama biasanya menyimpan nilai state, sedangkan variabel kedua menyimpan fungsi untuk mengubah state.
+- Mengubah state dengan memanggil fungsi yang disimpan di variabel kedua. Fungsi ini menerima nilai baru sebagai argumen.
+
+Contoh React state di dalam fungsi komponen:
+
+Misalkan kita memiliki file `App.js` yang berisi kode berikut:
+
+```javascript
+// Mengimpor React dan hook useState
+import React, { useState } from "react";
+
+// Membuat fungsi komponen App
+function App() {
+  // Memanggil hook useState dengan nilai awal 0
+  // Menyimpan array yang dikembalikan oleh hook useState ke dalam variabel count dan setCount
+  const [count, setCount] = useState(0);
+
+  // Membuat fungsi untuk menambahkan count
+  const incrementCount = () => {
+    // Mengubah state dengan memanggil fungsi setCount
+    setCount(count + 1);
+  };
+
+  // Mengembalikan elemen React menggunakan JSX dan state
+  return (
+    <div>
+      <h1>Counter</h1>
+      <p>You clicked {count} times</p>
+      <button onClick={incrementCount}>Click me</button>
+    </div>
+  );
+}
+
+// Mengekspor fungsi komponen App
+export default App;
+```
+
+Kemudian kita memiliki file `index.js` yang berisi kode yang sama seperti sebelumnya.
+
+Hasilnya adalah fungsi komponen `App` akan menampilkan sebuah counter yang bisa ditambahkan dengan menekan tombol "Click me". Setiap kali tombol ditekan, state `count` akan bertambah satu dan antarmuka pengguna akan diperbarui sesuai dengan nilai state terbaru.
+
+
