@@ -11,6 +11,7 @@
   - [Apa itu ES6](#APA-ITU-ES6)
   - [ES6 Class](#ES6-CLASS)
   - [ES6 Arrow Function](#ES6-ARROW-FUNCTION)
+  - [ES6 Variable](#ES6-VARIABLE)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -320,3 +321,80 @@ let tambah = (...angka) => angka.reduce((a, b) => a + b);
 // Arrow function dengan parameter destrukturisasi
 let tambah = ({a, b}) => a + b;
 ```
+### ES6 VARIABLE
+ES6 variable adalah sebuah ruang bernama di dalam memori yang menyimpan nilai. Nama dari variable disebut sebagai identifier. Ada beberapa aturan yang harus dipatuhi saat memberi nama sebuah identifier:
+
+- Identifier tidak boleh menggunakan kata kunci.
+- Identifier bisa mengandung huruf dan angka.
+- Identifier tidak boleh mengandung spasi dan karakter spesial, kecuali garis bawah (_) dan tanda dolar ($).
+- Nama variable tidak boleh diawali dengan angka.
+
+Sebuah variable harus dideklarasikan sebelum digunakan. Sintaks ES5 menggunakan kata kunci `var` untuk mencapai hal yang sama. Sintaks ES5 untuk mendeklarasikan sebuah variable adalah sebagai berikut.
+
+```javascript
+// Deklarasi menggunakan kata kunci var
+var nama_variable
+```
+
+ES6 memperkenalkan sintaks deklarasi variable berikut:
+
+- Menggunakan `let`.
+- Menggunakan `const`.
+
+Inisialisasi variable adalah proses menyimpan nilai ke dalam variable. Sebuah variable bisa diinisialisasi pada saat deklarasi atau pada waktu yang lain. Sintaks tradisional ES5 untuk mendeklarasikan dan menginisialisasi sebuah variable adalah sebagai berikut.
+
+```javascript
+// Deklarasi menggunakan kata kunci var
+var nama_variable = nilai
+```
+
+Contoh: Menggunakan Variable
+
+```javascript
+var nama = "Budi"
+console.log("Nilai dalam variable adalah: "+nama)
+```
+
+Contoh di atas mendeklarasikan sebuah variable dan mencetak nilainya. Output berikut ditampilkan saat dieksekusi.
+
+```
+Nilai dalam variable adalah: Budi
+```
+
+JavaScript dan Dynamic Typing
+
+JavaScript adalah bahasa yang tidak bertipe. Ini berarti bahwa sebuah variable JavaScript bisa menyimpan nilai dengan tipe data apapun. Tidak seperti bahasa lain, Anda tidak perlu memberitahu JavaScript saat deklarasi variable tentang tipe nilai yang akan disimpan oleh variable tersebut. Tipe nilai dari sebuah variable bisa berubah saat eksekusi program dan JavaScript menanganinya secara otomatis. Fitur ini disebut sebagai dynamic typing.
+
+JavaScript Variable Scope
+
+Scope dari sebuah variable adalah wilayah dari program Anda di mana variable tersebut didefinisikan. Secara tradisional, JavaScript hanya mendefinisikan dua scope - global dan lokal.
+
+- Global Scope - Sebuah variable dengan scope global bisa diakses dari bagian manapun dari kode JavaScript.
+- Local Scope - Sebuah variable dengan scope lokal hanya bisa diakses dari dalam fungsi di mana ia dideklarasikan.
+
+Contoh: Global vs. Local Variable
+
+Contoh berikut mendeklarasikan dua variable dengan nama `num` - satu di luar fungsi (global scope) dan satu lagi di dalam fungsi (local scope).
+
+```javascript
+var num = 10 // Di sini num adalah 10
+function test() {
+  var num = 100 // Di sini num adalah 100
+  console.log("nilai num di dalam test() "+num)
+}
+console.log("nilai num di luar test() "+num)
+test()
+```
+
+Variable tersebut ketika dirujuk di dalam fungsi menampilkan nilai dari variable dengan scope lokal. Namun, variable `num` ketika diakses di luar fungsi mengembalikan instance dengan scope global. Output berikut ditampilkan saat dieksekusi.
+
+```
+nilai num di luar test() 10
+nilai num di dalam test() 100
+```
+
+ES6 mendefinisikan scope baru untuk variable - Block scope.
+
+Let dan Block Scope
+
+Block scope membatasi akses sebuah variable ke block tempat ia dideklarasikan. Kata kunci `let` menetapkan scope block ke sebuah variable.
