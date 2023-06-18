@@ -33,6 +33,7 @@
 - [React Fragments](#React-Fragments)
 - [React Router](#React-Router)
 - [React CSS](#React-CSS)
+- [React Hooks](#React-Hooks)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2673,5 +2674,39 @@ class Car extends React.Component {
 
 export default Car;
 ```
+
+## REACT HOOKS
+
+React Hooks adalah fitur yang ditambahkan ke React versi 16.8. Hooks memungkinkan Anda menggunakan fitur-fitur React seperti mengelola state dan melakukan efek samping tanpa menulis kelas. Dengan Hooks, Anda bisa membuat komponen fungsional yang lebih ringkas dan mudah dibaca.
+
+Contoh penggunaan Hooks adalah useState dan useEffect. useState memungkinkan Anda mendeklarasikan variabel state yang bisa Anda perbarui secara langsung. useEffect memungkinkan Anda melakukan aksi setelah perubahan state tertentu terjadi.
+
+Berikut adalah contoh kode yang menggunakan Hooks:
+
+```jsx
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+
+function Counter() {
+  const [count, setCount] = useState(0); // deklarasi variabel state count
+
+  useEffect(() => {
+    // melakukan efek samping setiap kali count berubah
+    document.title = `You clicked ${count} times`;
+  }, [count]);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Counter />);
+```
+
+Selain menggunakan Hooks bawaan, Anda juga bisa membuat Hooks kustom sendiri. Hooks kustom berguna untuk menyimpan logika stateful yang perlu digunakan di beberapa komponen¹. Kami akan membahas lebih lanjut tentang Hooks kustom di bagian selanjutnya.
 
 
