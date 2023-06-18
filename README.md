@@ -31,6 +31,7 @@
 - [React Keys](#React-Keys)
 - [React Refs](#React-Refs)
 - [React Fragments](#React-Fragments)
+- [React Router](#React-Router)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -2399,5 +2400,141 @@ function Glossary(props) {
 ```
 
 key adalah satu-satunya atribut yang bisa dilewatkan ke Fragment. Di masa depan, kita mungkin menambahkan dukungan untuk atribut tambahan, seperti event handler.
+
+## REACT ROUTER
+
+React Router adalah solusi routing yang populer dan lengkap untuk aplikasi React. React Router memungkinkan Anda membuat navigasi berbasis URL di aplikasi Anda dengan menggunakan komponen, hook, dan fungsi bantuan yang sudah dikembangkan sebelumnya. React Router menawarkan dua paket terpisah untuk mengimplementasikan routing di proyek React Web dan React Native.
+
+- react-router-dom: Paket ini menyediakan komponen dan hook untuk routing berbasis web. Ini bergantung pada paket react-router inti dan menambahkan fitur spesifik web seperti browser history, link, dan navigasi.
+- react-router-native: Paket ini menyediakan komponen dan hook untuk routing berbasis native. Ini juga bergantung pada paket react-router inti dan menambahkan fitur spesifik native seperti deep linking, back button, dan modal.
+
+Untuk menggunakan React Router di aplikasi Anda, Anda perlu menginstal paket yang sesuai dengan jenis proyek Anda. Misalnya, jika Anda membuat aplikasi web dengan React, Anda perlu menginstal paket react-router-dom:
+
+```bash
+npm install react-router-dom
+```
+
+Atau jika Anda menggunakan yarn:
+
+```bash
+yarn add react-router-dom
+```
+
+Jika Anda membuat aplikasi native dengan React Native, Anda perlu menginstal paket react-router-native:
+
+```bash
+npm install react-router-native
+```
+
+Atau jika Anda menggunakan yarn:
+
+```bash
+yarn add react-router-native
+```
+
+Penggunaan Dasar
+Untuk menggunakan React Router di aplikasi web Anda, Anda perlu mengimpor komponen dan hook dari paket react-router-dom. Komponen dan hook yang paling umum digunakan adalah:
+
+- BrowserRouter: Komponen ini membungkus aplikasi Anda dan menyediakan akses ke history API browser. Ini harus ditempatkan di sekitar elemen root dari aplikasi Anda.
+- Routes: Komponen ini mendefinisikan koleksi rute yang bisa dicocokkan dengan URL saat ini. Ini harus menjadi anak langsung dari BrowserRouter atau komponen router lainnya.
+- Route: Komponen ini mewakili sebuah rute yang bisa dirender berdasarkan path yang cocok dengan URL saat ini. Ini harus menjadi anak langsung dari Routes atau Route lainnya.
+- Link: Komponen ini membuat sebuah tautan navigasi yang bisa mengubah URL saat ini tanpa me-refresh halaman. Ini harus digunakan sebagai ganti elemen <a> biasa untuk tautan internal.
+- Outlet: Komponen ini menampilkan elemen yang cocok dengan rute anak dari rute saat ini. Ini berguna untuk membuat layout bersarang atau rute bertingkat.
+- useNavigate: Hook ini mengembalikan sebuah fungsi yang bisa digunakan untuk melakukan navigasi programatik ke URL lain. Ini berguna untuk menangani event seperti klik tombol atau submit form.
+- useLocation: Hook ini mengembalikan sebuah objek yang merepresentasikan lokasi saat ini. Objek ini memiliki properti seperti pathname, search, hash, dan state yang bisa digunakan untuk mendapatkan informasi tentang URL saat ini.
+- useParams: Hook ini mengembalikan sebuah objek yang berisi parameter rute dinamis dari rute saat ini. Parameter rute dinamis adalah bagian dari path yang diawali dengan titik dua (:), seperti /users/:id.
+
+Contoh penggunaan beberapa komponen dan hook di atas adalah sebagai berikut:
+
+```jsx
+// Mengimpor komponen dan hook dari react-router-dom
+import { BrowserRouter, Routes, Route, Link, Outlet, useNavigate, useLocation, useParams } from "react-router-dom";
+
+// Membuat beberapa komponen halaman sederhana
+function Home() {
+  return <h1>Home Page</h1>;
+}
+
+function About() {
+  return <h1>About Page</h1>;
+}
+
+function Users() {
+  // Menggunakan Outlet untuk menampilkan rute anak
+  return (
+    <div>
+      <h1>Users Page</h1>
+      <Outlet />
+    </div>
+  );
+}
+
+function User() {
+  // Menggunakan useParams untuk mendapatkan parameter rute dinamis
+  const { id } = useParams();
+  return <h2>User ID: {id}</h2>;
+}
+
+function Contact() {
+  // Menggunakan useNavigate untuk melakukan navigasi programatik
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    // Navigasi ke halaman home setelah submit form
+    navigate("/");
+  };
+  return (
+    <div>
+      <h1>Contact Page</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  );
+}
+
+function NotFound() {
+  // Menggunakan useLocation untuk mendapatkan lokasi saat ini
+  const location = useLocation();
+  return <h1>Page not found: {location.pathname}</h1>;
+}
+
+// Membuat komponen aplikasi utama
+function App() {
+  return (
+    // Menggunakan BrowserRouter untuk membungkus aplikasi
+    <BrowserRouter>
+      // Menggunakan Routes untuk mendefinisikan koleksi rute
+      <Routes>
+        // Menggunakan Route untuk mewakili setiap rute
+        // Prop path menentukan pola URL yang harus dicocokkan
+        // Prop element menentukan elemen yang harus dirender
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        // Menggunakan Route bertingkat untuk membuat rute bersarang
+        <Route path="/users" element={<Users />}>
+          // Rute anak akan menambahkan path ke rute induk
+          // Misalnya, /users/:id akan cocok dengan /users/123
+          <Route path=":id" element={<User />} />
+        </Route>
+        <Route path="/contact" element={<Contact />} />
+        // Menggunakan * sebagai catch-all untuk rute yang tidak didefinisikan
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      // Menggunakan Link untuk membuat tautan navigasi
+      // Prop to menentukan URL tujuan
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/contact">Contact</Link>
+      </nav>
+    </BrowserRouter>
+  );
+}
+```
+
+Dengan kode di atas, kita bisa membuat aplikasi web sederhana dengan beberapa halaman yang bisa diakses melalui URL atau tautan. Kita juga bisa menangani kasus seperti rute tidak ditemukan, rute dinamis, dan navigasi programatik dengan React Router.
 
 
