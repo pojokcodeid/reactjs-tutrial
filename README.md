@@ -1506,6 +1506,53 @@ React Component API terdiri dari beberapa bagian, yaitu:
 
 - React.Suspense: Ini adalah komponen khusus yang digunakan untuk menampilkan fallback UI sementara menunggu konten tertentu dimuat, seperti komponen dinamis atau data fetching. Komponen ini memiliki properti fallback, yaitu elemen React yang akan ditampilkan saat kontennya belum siap.
 
+Contoh penggunaan beberapa metode dan properti dari React Component API:
+
+```javascript
+// Mengimpor React
+import React from "react";
+
+// Membuat kelas komponen App
+class App extends React.Component {
+  // Mendefinisikan constructor kelas komponen
+  constructor(props) {
+    // Memanggil constructor kelas induk
+    super(props);
+    // Mendefinisikan state awal
+    this.state = {
+      name: "Budi",
+      age: 22,
+    };
+    // Mengikat event handler ke komponen ini
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // Membuat metode untuk menangani klik tombol
+  handleClick() {
+    // Mengubah state dengan metode setState()
+    this.setState({
+      name: "Ani",
+      age: 21,
+    });
+  }
+
+  // Membuat metode render
+  render() {
+    // Mengembalikan elemen React menggunakan JSX dan state
+    return (
+      <div>
+        <h1>Hello, {this.state.name}!</h1>
+        <p>You are {this.state.age} years old</p>
+        <button onClick={this.handleClick}>Change name</button>
+      </div>
+    );
+  }
+}
+
+// Mengekspor kelas komponen App sebagai default
+export default App;
+```
+
 Berikut adalah contoh penggunaan React API untuk membuat sebuah aplikasi sederhana yang menampilkan daftar buku dan memungkinkan pengguna untuk menambahkan buku baru ke daftar.
 
 ```javascript
