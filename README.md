@@ -13,6 +13,7 @@
   - [ES6 Arrow Function](#ES6-ARROW-FUNCTION)
   - [ES6 Variable](#ES6-VARIABLE)
   - [ES6 Array Method](#ES6-ARRAY-METHOD)
+  - [ES6 Destructuring](#ES6-DESTRUCTURING)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -478,4 +479,80 @@ for (let value of iterator) {
 let arr = [1, 2, 3, 4, 5];
 arr.fill(0); // Mengisi semua elemen dengan angka nol
 console.log(arr); // [0, 0, 0, 0 ,0]
+```
+### ES6 DESTRUCTURING
+Destructuring adalah sintaks ekspresi JavaScript yang memungkinkan kita untuk membongkar nilai dari array atau properti dari objek ke dalam variabel yang berbeda.
+
+Dengan destructuring, kita bisa mengekstrak hanya apa yang dibutuhkan dari array atau objek tanpa harus mengakses setiap elemen atau properti secara manual.
+
+Contoh destructuring array:
+
+```javascript
+// Tanpa destructuring
+let buah = ["apel", "jeruk", "pisang"];
+let buah1 = buah[0];
+let buah2 = buah[1];
+let buah3 = buah[2];
+
+// Dengan destructuring
+let buah = ["apel", "jeruk", "pisang"];
+let [buah1, buah2, buah3] = buah;
+```
+
+Contoh destructuring objek:
+
+```javascript
+// Tanpa destructuring
+let mobil = { merk: "Toyota", warna: "hitam", tahun: 2020 };
+let merk = mobil.merk;
+let warna = mobil.warna;
+let tahun = mobil.tahun;
+
+// Dengan destructuring
+let mobil = { merk: "Toyota", warna: "hitam", tahun: 2020 };
+let { merk, warna, tahun } = mobil;
+```
+
+Destructuring juga bisa digunakan untuk memberi nama variabel yang berbeda dari nama properti objek, memberi nilai default jika properti tidak ada, atau mengambil sisa elemen atau properti menggunakan sintaks rest parameter.
+
+Contoh destructuring objek dengan nama variabel berbeda:
+
+```javascript
+// Tanpa destructuring
+let mobil = { merk: "Toyota", warna: "hitam", tahun: 2020 };
+let namaMerk = mobil.merk;
+let namaWarna = mobil.warna;
+let namaTahun = mobil.tahun;
+
+// Dengan destructuring
+let mobil = { merk: "Toyota", warna: "hitam", tahun: 2020 };
+let { merk: namaMerk, warna: namaWarna, tahun: namaTahun } = mobil;
+```
+
+Contoh destructuring objek dengan nilai default:
+
+```javascript
+// Tanpa destructuring
+let mobil = { merk: "Toyota", warna: "hitam" };
+let merk = mobil.merk;
+let warna = mobil.warna;
+let tahun = mobil.tahun || 2021; // Nilai default jika tidak ada
+
+// Dengan destructuring
+let mobil = { merk: "Toyota", warna: "hitam" };
+let { merk, warna, tahun = 2021 } = mobil; // Nilai default jika tidak ada
+```
+
+Contoh destructuring array dengan rest parameter:
+
+```javascript
+// Tanpa destructuring
+let buah = ["apel", "jeruk", "pisang", "mangga"];
+let buah1 = buah[0];
+let buah2 = buah[1];
+let sisaBuah = buah.slice(2); // Mengambil sisa elemen
+
+// Dengan destructuring
+let buah = ["apel", "jeruk", "pisang", "mangga"];
+let [buah1, buah2, ...sisaBuah] = buah; // Mengambil sisa elemen
 ```
