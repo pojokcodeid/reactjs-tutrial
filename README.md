@@ -26,6 +26,7 @@
 - [State Vs. Props](#State-Vs-Props)
 - [Constructor](#Constructor)
 - [React API](#React-API)
+- [React Form](#React-Form)
 
 ## SEJARAH REACT
 React JS adalah sebuah **library JavaScript** untuk membangun antarmuka pengguna. React JS digunakan untuk membuat aplikasi satu halaman. React JS memungkinkan kita untuk membuat komponen UI yang dapat digunakan kembali. React JS juga mendukung sintaks JSX, yang merupakan ekstensi sintaks JavaScript yang memudahkan kita untuk menulis kode dan markup dalam satu file¹.
@@ -1629,4 +1630,109 @@ function Book({ book }) {
 
 // Mengekspor fungsi komponen BookList sebagai default
 export default BookList;
+```
+
+## REACT FORM 
+React Forms adalah cara untuk memungkinkan pengguna berinteraksi dengan halaman web dengan memasukkan dan mengirimkan data di dalam komponen React. Seperti di HTML, React menggunakan elemen form seperti <input>, <textarea>, <select>, dan lain-lain untuk membuat form.
+
+Menambahkan Form di React
+Anda bisa menambahkan form dengan React seperti elemen lainnya:
+
+```javascript
+function MyForm() {
+  return (
+    <form>
+      <label>Enter your name:</label>
+      <input type="text" />
+    </form>
+  );
+}
+```
+
+Ini akan berfungsi seperti biasa, form akan terkirim dan halaman akan refresh. Namun, ini biasanya bukan yang kita inginkan di React. Kita ingin mencegah perilaku default ini dan membiarkan React mengontrol form.
+
+Menangani Form
+Menangani form adalah tentang bagaimana Anda menangani data saat nilai atau data tersebut berubah atau terkirim. Di HTML, data form biasanya ditangani oleh DOM. Di React, data form biasanya ditangani oleh komponen.
+
+Ketika data ditangani oleh komponen, semua data disimpan di state komponen. Anda bisa mengontrol perubahan dengan menambahkan event handler di atribut onChange. Anda bisa menggunakan hook useState untuk melacak nilai setiap input dan memberikan "sumber kebenaran tunggal" untuk seluruh aplikasi.
+
+```javascript
+import { useState } from "react";
+
+function MyForm() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setName(value);
+  };
+
+  return (
+    <form>
+      <label>Enter your name:</label>
+      <input type="text" value={name} onChange={handleChange} />
+    </form>
+  );
+}
+```
+
+Mengirimkan Form
+Anda bisa mengontrol aksi submit dengan menambahkan event handler di atribut onSubmit untuk elemen <form>:
+
+```javascript
+import { useState } from "react";
+
+function MyForm() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setName(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`The name you entered was: ${name}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Enter your name:</label>
+      <input type="text" value={name} onChange={handleChange} />
+      <input type="submit" />
+    </form>
+  );
+}
+```
+
+Input Field yang Banyak
+Anda bisa mengontrol nilai dari lebih dari satu input field dengan menambahkan atribut name untuk setiap elemen. Kita akan menginisialisasi state kita dengan objek kosong. Untuk mengakses field di event handler gunakan sintaks event.target.name dan event.target.value. Untuk mengubah state, gunakan kurung siku [bracket notation] di sekitar nama properti.
+
+```javascript
+import { useState } from "react";
+
+function MyForm() {
+  const [inputs, setInputs] = useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(inputs);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Enter your name:</label>
+      <input type="text" name="username" value={inputs.username || ""} onChange={handleChange} />
+      <label>Enter your age:</label>
+      <input type="number" name="age" value={inputs.age || ""} onChange={handleChange} />
+      <input type="submit" />
+    </form>
+  );
+}
 ```
