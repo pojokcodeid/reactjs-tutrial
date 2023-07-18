@@ -1,4 +1,5 @@
-import ExpenseEntryItemList from "./ExpenseEntryItemList.jsx";
+import ExpenseEntryItemList from "./ExpenseEntryItemList";
+
 function Mydata() {
   const items = [
     {

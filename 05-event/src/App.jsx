@@ -1,19 +1,16 @@
 import Button from "./basic/Contoh1";
 import Contoh2 from "./basic/Contoh2";
-import Mydata from "./component/Mydata";
 import MessageWithEvent from "./basic/Message";
+import Mydata from "./component/Mydata";
 function App() {
   return (
     <>
       <div>
-        {/* ini conoth pertama */}
+        <h1>Hello World</h1>
         <Button />
-        {/* ini conoth kedua */}
         <Contoh2 />
-        {/* ini conoth ketiga */}
         <MessageWithEvent name="React" />
         <MessageWithEvent name="React + Vite" />
-        {/* ini conoth ke empat */}
         <Mydata />
       </div>
     </>

@@ -5,13 +5,13 @@ function Button() {
 
   function handleClick() {
     setClicks(clicks + 1);
-    console.log("Tobmbol di klik !");
+    console.log("Tombol di kilk !");
   }
 
   return (
     <div>
       <button onClick={handleClick}>Klik Saya</button>
-      <p>Jumlah Klik {clicks}</p>
+      <p>Jumlah Click {clicks}</p>
     </div>
   );
 }

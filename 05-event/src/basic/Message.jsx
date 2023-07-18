@@ -5,10 +5,12 @@ class MessageWithEvent extends React.Component {
     super(props);
     this.logEventToConsole = this.logEventToConsole.bind(this);
   }
+
   logEventToConsole(msgid, e) {
     console.log(e.target.innerHTML);
     console.log(msgid);
   }
+
   render() {
     return (
       <div

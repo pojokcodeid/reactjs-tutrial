@@ -4,7 +4,6 @@ import "./ExpenseEntryItemList.css";
 class ExpenseEntryItemList extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleMouseEnter = this.handleMouseEnter.bind();
     this.handleMouseLeave = this.handleMouseLeave.bind();
     this.handleMouseOver = this.handleMouseOver.bind();
@@ -46,4 +45,5 @@ class ExpenseEntryItemList extends React.Component {
     );
   }
 }
+
 export default ExpenseEntryItemList;
