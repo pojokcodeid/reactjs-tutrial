@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      const app = document.getElementById("app");
+      const root = ReactDOM.createRoot(app);
+      const elemenId = "myId";
+      const content = "Hello World";
+      const item = ["Pena", "Buku", "Meja", "Penggaris", "Botol"];
+      let Header = (
+        <>
+          <div id={elemenId}>
+            <h1>{content}</h1>
+            <p>ini adalah paragraf</p>
+          </div>
+          <div>
+            <ul>
+              {item.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <button id="btn" onClick={() => alert("Hello World")}>
+            Klik Me
+          </button>
+        </>
+      );
+      root.render(Header);
+    </script>
+  </body>
+</html>
