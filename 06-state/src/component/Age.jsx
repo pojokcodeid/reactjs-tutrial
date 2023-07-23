@@ -7,7 +7,7 @@ class Age extends React.Component {
       name: "Pojok Code",
       gender: "Laki-laki",
       age: 0,
-      acess: "input Tanggal Lahir",
+      acess: "Input Tanggal Lahir",
     };
   }
 
@@ -16,31 +16,32 @@ class Age extends React.Component {
     let currentTime = new Date().getTime();
     let birthDateTime = new Date(tlahir).getTime();
     let difference = currentTime - birthDateTime;
-    let ageInYears = Math.floor(difference / (1000 * 60 * 60 * 24 * 365));
+    let ageInYear = Math.floor(difference / (1000 * 60 * 60 * 24 * 365));
     let message = "";
-    if (ageInYears >= 18) {
-      message = "Anda Sudah Berhak untuk Masuk";
+    if (ageInYear >= 18) {
+      message = "Anda sudah berhak untuk mengacessnya";
     } else {
-      message = "Anda Tidak Berhak untuk Masuk";
+      message = "Anda belum berhak untuk mengacessnya";
     }
     this.setState({
-      age: ageInYears,
       acess: message,
+      age: ageInYear,
     });
   };
+
   render() {
     return (
       <div>
-        <h1>Hello Pengecekan Acess Dengan Umur</h1>
+        <h1>Pengecekan Acess Dengan Umur</h1>
         <p>
-          Name: {this.state.name} <br></br>
-          Gender: {this.state.gender} <br></br>
-          Age: {this.state.age} <br></br>
+          Name : {this.state.name} <br />
+          Gender : {this.state.gender} <br />
+          Age : {this.state.age} <br />
         </p>
-        <h1>{this.state.acess}</h1>
-        <input type="date" id="newAge"></input>&nbsp;
+        <h2>{this.state.acess}</h2>
+        <input type="date" id="newAge" /> &nbsp;
         <button type="button" onClick={this.checkAge}>
-          Cek Umur
+          Check Umur
         </button>
       </div>
     );

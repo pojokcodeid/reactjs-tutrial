@@ -1,14 +1,16 @@
 import Counter from "./component/Counter";
+import Age from "./component/Age";
 import Mydata from "./component/Mydata";
 function App() {
   return (
     <>
       <div>
         <h1>Hello World</h1>
-        {/* contoh 1 */}
+        <hr />
         <Counter />
-        <br />
-        {/* contoh 2 */}
+        <hr />
+        <Age />
+        <hr />
         <Mydata />
       </div>
     </>
