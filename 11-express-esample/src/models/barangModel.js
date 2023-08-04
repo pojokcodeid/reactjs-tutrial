@@ -5,10 +5,9 @@ module.exports = {
       conn = await pool.getConnection();
       sql = "SELECT * from barang";
       const rows = await conn.query(sql);
-      conn.end();
       return rows;
-    } catch (err) {
-      throw err;
+    } finally {
+      if (conn) conn.release(); //release to pool
     }
   },
 
@@ -17,10 +16,9 @@ module.exports = {
       conn = await pool.getConnection();
       sql = "SELECT * from barang where barang_id = ?";
       const rows = await conn.query(sql, [id]);
-      conn.end();
       return rows;
-    } catch (err) {
-      throw err;
+    } finally {
+      if (conn) conn.release(); //release to pool
     }
   },
 
@@ -36,10 +34,9 @@ module.exports = {
         data.expireDate,
         data.id,
       ]);
-      conn.end();
       return rows;
-    } catch (err) {
-      throw err;
+    } finally {
+      if (conn) conn.release(); //release to pool
     }
   },
 
@@ -54,10 +51,9 @@ module.exports = {
         data.hargaSatuan,
         data.expireDate,
       ]);
-      conn.end();
       return rows;
-    } catch (err) {
-      throw err;
+    } finally {
+      if (conn) conn.release(); //release to pool
     }
   },
 
@@ -66,10 +62,9 @@ module.exports = {
       conn = await pool.getConnection();
       sql = "DELETE FROM barang WHERE barang_id = ?";
       const rows = await conn.query(sql, [id]);
-      conn.end();
       return rows;
-    } catch (err) {
-      throw err;
+    } finally {
+      if (conn) conn.release(); //release to pool
     }
   },
 };
