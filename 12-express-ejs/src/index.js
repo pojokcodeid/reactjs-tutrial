@@ -26,14 +26,6 @@ app.use(logProcess); //ini middleware
 // router
 app.use(router);
 
-app.use("*", (req, res) => {
-  const data = {
-    title: "Error",
-    layout: "layout/main-layout",
-  };
-  res.render("404", data);
-});
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port http://localhost:${PORT}/`);
 });
