@@ -1,18 +1,7 @@
-const {
-  findAllBarang,
-  findBarangById,
-  setNewBarang,
-  updateBarang,
-  insertBarang,
-} = require("../controllers/barangController");
-const barangValidation = require("../validation/barangValidation");
-const router = require("express").Router();
-
-router.get("/barang", findAllBarang); //mendapatkan semua barang
-router.get("/barang/insert", insertBarang); //menampilkan form tambah barang
-router.post("/barang/insert", barangValidation, setNewBarang); //menambahkan barang
-router.get("/barang/edit/:key", findBarangById); //mendapatkan barang dengan id tertentu
-router.post("/barang/edit", barangValidation, updateBarang); //mengupdate barang, bisa pakai put juga
+const express = require("express");
+const barangRouter = require("./barang");
+const kategoriRouter = require("./barangKategori");
+const router = express.Router();
 
 router.get("/", (req, res) => {
   const data = {
@@ -21,5 +10,8 @@ router.get("/", (req, res) => {
   };
   res.render("index", data);
 });
+
+router.use("/barang", barangRouter);
+router.use("/kategori", kategoriRouter);
 
 module.exports = router;
