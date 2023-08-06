@@ -8,7 +8,6 @@ const findAllBarang = async (req, res) => {
       title: "Barang",
       barang,
       layout: "layout/main-layout",
-      base_url: process.env.BASE_URL,
       message: null,
     };
     res.render("barang/index", data);
@@ -21,7 +20,6 @@ const insertBarang = (req, res) => {
   const data = {
     title: "Insert Barang",
     layout: "layout/main-layout",
-    base_url: process.env.BASE_URL,
     errors: null,
     data: null,
   };
@@ -44,7 +42,6 @@ const findBarangById = async (req, res) => {
       const data = {
         title: "Edit Barang",
         layout: "layout/main-layout",
-        base_url: process.env.BASE_URL,
         data: hasil[0],
         errors: null,
       };
@@ -81,7 +78,6 @@ const setNewBarang = async (req, res) => {
           title: "Barang",
           barang,
           layout: "layout/main-layout",
-          base_url: process.env.BASE_URL,
           message: "Data berhasil ditambahkan",
         };
         res.render("barang/index", data);
@@ -93,7 +89,6 @@ const setNewBarang = async (req, res) => {
     const data = {
       title: "Contact",
       layout: "layout/main-layout",
-      base_url: process.env.BASE_URL,
       errors: result.array(),
       data: req.body,
     };
@@ -134,7 +129,6 @@ const updateBarang = async (req, res) => {
           title: "Barang",
           barang,
           layout: "layout/main-layout",
-          base_url: process.env.BASE_URL,
           message: message,
         };
         res.render("barang/index", data);
@@ -146,7 +140,6 @@ const updateBarang = async (req, res) => {
     const data = {
       title: "Edit Barang",
       layout: "layout/main-layout",
-      base_url: process.env.BASE_URL,
       data: {
         barang_id: id,
         nama_barang: nama_barang,

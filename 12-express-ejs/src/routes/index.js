@@ -18,7 +18,6 @@ router.get("/", (req, res) => {
   const data = {
     title: "Contact",
     layout: "layout/main-layout",
-    base_url: process.env.BASE_URL,
   };
   res.render("index", data);
 });
