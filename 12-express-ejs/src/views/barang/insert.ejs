@@ -1,3 +1,20 @@
+<% if (errors) { %>
+<script>
+  Swal.fire({
+    title: 'Error!',
+    text: '<%= errors[0].msg %>',
+    icon: 'error'
+  })
+</script>
+<% } %>
+<% 
+let nama_barang="",jumlah="",harga_satuan="",kadaluarsa="";
+if (data) {
+  nama_barang = data.nama_barang;
+  jumlah = data.jumlah;
+  harga_satuan = data.harga_satuan;
+  kadaluarsa = data.expire_date;
+}%>
 <div class="row">
   <div class="container col-50">
     <h2 class="header">Input Barang</h2>
@@ -7,7 +24,7 @@
           <label for="nama_barang">Nama Barang</label>
         </div>
         <div class="col-50">
-          <input type="text" id="nama_barang" name="nama_barang">
+          <input type="text" id="nama_barang" name="nama_barang" value="<%= nama_barang %>">
         </div>
       </div>
       <div class="row">
@@ -15,7 +32,7 @@
           <label for="jumlah">Jumlah</label>
         </div>
         <div class="col-25">
-          <input type="number" id="jumlah" name="jumlah">
+          <input type="number" id="jumlah" name="jumlah" value="<%= jumlah %>">
         </div>
       </div>
       <div class="row">
@@ -23,7 +40,7 @@
           <label for="harga_satuan">Harga Satuan</label>
         </div>
         <div class="col-25">
-          <input type="number" id="harga_satuan" name="harga_satuan">
+          <input type="number" id="harga_satuan" name="harga_satuan" value="<%= harga_satuan %>">
         </div>
       </div>
       <div class="row">
@@ -31,17 +48,17 @@
           <label for="kadaluarsa">Tanggal Kadaluarsa</label>
         </div>
         <div class="col-25">
-          <input type="date" id="kadaluarsa" name="kadaluarsa">
+          <input type="date" id="kadaluarsa" name="kadaluarsa" value="<%= kadaluarsa ? new Date(kadaluarsa).toISOString().slice(0, 10) : '' %>
         </div>
       </div>
-      <div class="row">
-        <div class="col-25">&nbsp;</div>
-        <div class="col-75">
-          <button type="submit" class="btn primary">
-            <i class="fa-solid fa-floppy-disk"></i> Simpan
-          </button>
+      <div class=" row">
+          <div class="col-25">&nbsp;</div>
+          <div class="col-75">
+            <button type="submit" class="btn primary">
+              <i class="fa-solid fa-floppy-disk"></i> Simpan
+            </button>
+          </div>
         </div>
-      </div>
     </form>
   </div>
 </div>

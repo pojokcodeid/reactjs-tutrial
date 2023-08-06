@@ -1,3 +1,12 @@
+<% if (errors) { %>
+<script>
+  Swal.fire({
+    title: 'Error!',
+    text: '<%= errors[0].msg %>',
+    icon: 'error'
+  })
+</script>
+<% } %>
 <div class="row">
   <div class="container col-50">
     <h2 class="header">Edit Barang</h2>

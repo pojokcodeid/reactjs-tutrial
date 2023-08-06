@@ -1,3 +1,12 @@
+<% if (message) { %>
+<script>
+  Swal.fire({
+    title: 'Berhasil !',
+    text: '<%= message %>',
+    icon: 'success'
+  })
+</script>
+<% } %>
 <div class="container">
   <div class="header">
     <h2>Data Barang</h2>
@@ -33,7 +42,7 @@
             <%= row.harga_satuan %>
           </td>
           <td>
-            <%= row.expire_date %>
+            <%= row.expire_date ? new Date(row.expire_date).toISOString().slice(0, 10) : '' %>
           </td>
           <td><a href="/barang/edit/<%= row.barang_id %>"><i class="fa-solid fa-pen-to-square"></i>
               Edit</a></td>

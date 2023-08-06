@@ -5,13 +5,14 @@ const {
   updateBarang,
   insertBarang,
 } = require("../controllers/barangController");
+const barangValidation = require("../validation/barangValidation");
 const router = require("express").Router();
 
 router.get("/barang", findAllBarang); //mendapatkan semua barang
 router.get("/barang/insert", insertBarang); //menampilkan form tambah barang
-router.post("/barang/insert", setNewBarang); //menambahkan barang
+router.post("/barang/insert", barangValidation, setNewBarang); //menambahkan barang
 router.get("/barang/edit/:key", findBarangById); //mendapatkan barang dengan id tertentu
-router.post("/barang/edit", updateBarang); //mengupdate barang, bisa pakai put juga
+router.post("/barang/edit", barangValidation, updateBarang); //mengupdate barang, bisa pakai put juga
 
 router.get("/", (req, res) => {
   const data = {
