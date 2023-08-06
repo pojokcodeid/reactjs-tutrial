@@ -18,7 +18,7 @@ app.set("views", path.join(__dirname, "../src/views"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 
-// bildin middleware static file
+// built in middleware static file
 app.use(express.static("public"));
 // set urlencode untuk post data
 app.use(express.urlencoded({ extended: true }));
